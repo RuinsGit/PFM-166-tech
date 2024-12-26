@@ -22,6 +22,9 @@ Route::get('/', function () {
 
 Route::prefix('admin')->group(function () {
     Route::get('/', function () {
+        if (auth()->guard('admin')->check()) {
+            return redirect()->route('back.pages.index');
+        }
         return redirect()->route('admin.login');
     });
 
@@ -37,7 +40,7 @@ Route::prefix('admin')->group(function () {
 
         Route::post('logout', [AdminController::class, 'logout'])->name('admin.logout');
 
-        Route::prefix('pages')->name('back.pages.')->middleware(['auth', 'verified'])->group(function () {
+        Route::prefix('pages')->name('back.pages.')->group(function () {
             Route::get('index', [PageController::class, 'index'])->name('index');
         });
     });
