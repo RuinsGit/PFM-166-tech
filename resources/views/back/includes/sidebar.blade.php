@@ -9,7 +9,7 @@
                 <img src="{{ asset('back/assets/images/logo-eneraz.webp') }}" width="80" alt="">
             </div>
             <div class="mt-3">
-                <h4 class="font-size-16 mb-1">{{ auth()->user()->name }}</h4>
+                <h4 class="font-size-16 mb-1">{{ auth()->guard('admin')->user()->name }}</h4>
                 <span class="text-muted"><i class="ri-record-circle-line align-middle font-size-14 text-success"></i>
                     Online</span>
             </div>
@@ -22,7 +22,7 @@
                 <li class="menu-title">Menu</li>
 
                 <li>
-                    <a href="№" class="waves-effect">
+                    <a href="{{ route('admin.dashboard') }}" class="waves-effect">
                         <i class="ri-dashboard-line"></i>
                         <span>Ana Səhifə</span>
                     </a>
