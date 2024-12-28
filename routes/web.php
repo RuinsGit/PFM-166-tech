@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\TranslationManageController;
+use App\Http\Controllers\Admin\LogoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,9 +51,15 @@ Route::prefix('admin')->group(function () {
             Route::put('translation-manage/{translation}', [TranslationManageController::class, 'update'])->name('translation-manage.update');
             Route::delete('translation-manage/{translation}', [TranslationManageController::class, 'destroy'])->name('translation-manage.destroy');
 
-
-
-
-        });
+            Route::resource('logos', LogoController::class);
+            Route::get('logos', [LogoController::class, 'index'])->name('logos.index');
+            Route::get('logos/create', [LogoController::class, 'create'])->name('logos.create');
+            Route::post('logos', [LogoController::class, 'store'])->name('logos.store');
+            Route::get('logos/{id}', [LogoController::class, 'show'])->name('logos.show');
+            Route::get('logos/{id}/edit', [LogoController::class, 'edit'])->name('logos.edit');
+            Route::put('logos/{id}', [LogoController::class, 'update'])->name('logos.update');
+            Route::delete('logos/{id}', [LogoController::class, 'destroy'])->name('logos.destroy');
+        });     
     });
 });
+

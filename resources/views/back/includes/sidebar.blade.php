@@ -6,7 +6,7 @@
         <!-- User details -->
         <div class="user-profile text-center mt-3">
             <div class="">
-                <img src="{{ asset('back/assets/images/logo-eneraz.webp') }}" width="80" alt="">
+                <img src="{{ asset('back/assets/images/logo.svg') }}" width="80" alt="">
             </div>
             <div class="mt-3">
                 <h4 class="font-size-16 mb-1">{{ auth()->guard('admin')->user()->name }}</h4>
@@ -31,12 +31,23 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="mdi mdi-application-cog"></i>
-                        <span>Translation Manage</span>
+                        <span>Tənzimləmələr</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('back.pages.translation-manage.index') }}">Translation</a></li>
-                        <li><a href="#">General Translation</a></li>
-                        <li><a href="#">About</a></li>
+                       
+                    <li>
+                            <a href="{{ route('back.pages.translation-manage.index') }}">
+                                <i class="mdi mdi-translate"></i>
+                                <span>Tərcümələr</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('back.pages.logos.index') }}">
+                                <i class="mdi mdi-image"></i>
+                                <span>Logolar</span>
+                            </a>
+                        </li>   
+                       
                     </ul>
                 </li>
             </ul>
