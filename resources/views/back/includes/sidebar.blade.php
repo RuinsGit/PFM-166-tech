@@ -24,19 +24,19 @@
                 <li>
                     <a href="{{ route('admin.dashboard') }}" class="waves-effect">
                         <i class="ri-dashboard-line"></i>
-                        <span>Ana Səhifə</span>
+                        <span>Dashboard</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="mdi mdi-application-cog"></i>
-                        <span>Tənzimləmələr</span>
+                        <span>Translation Manage</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">Tərcümələr</a></li>
-                        <li><a href="#">Ümumi tənzimləmələr</a></li>
-                        <li><a href="#">Haqqımızda</a></li>
+                        <li><a href="{{ route('back.pages.translation-manage.index') }}">Translation</a></li>
+                        <li><a href="#">General Translation</a></li>
+                        <li><a href="#">About</a></li>
                     </ul>
                 </li>
             </ul>
