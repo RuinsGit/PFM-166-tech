@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\TranslationManageController;
 use App\Http\Controllers\Admin\LogoController;
 use App\Http\Controllers\Admin\HomeCardController;
+use App\Http\Controllers\Admin\AboutController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -68,6 +69,10 @@ Route::prefix('admin')->group(function () {
             Route::get('home-cards/{id}/edit', [HomeCardController::class, 'edit'])->name('home-cards.edit');
             Route::put('home-cards/{id}', [HomeCardController::class, 'update'])->name('home-cards.update');
             Route::delete('home-cards/{id}', [HomeCardController::class, 'destroy'])->name('home-cards.destroy');
+
+            // About routes
+            Route::get('about', [AboutController::class, 'index'])->name('about.index');
+            Route::put('about', [AboutController::class, 'update'])->name('about.update');
         });     
     });
 });
