@@ -158,7 +158,7 @@ class LogoController extends Controller
 
         $logo->save();
 
-        return redirect()->route('back.pages.logos.index')->with('success', 'Logo başarıyla güncellendi.');
+        return redirect()->route('back.pages.logos.index')->with('success', 'Logo uğurla yeniləndi.');
     }
 
     public function destroy($id)
