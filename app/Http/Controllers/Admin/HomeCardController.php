@@ -44,20 +44,41 @@ class HomeCardController extends Controller
             'description_ru' => 'required|string',
         ]);
 
-        $imagePath = $request->file('image')->store('home-cards', 'public');
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $destinationPath = public_path('uploads/homecard');
+            
+            // Create directory if it doesn't exist
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+            
+            $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $webpFileName = time() . '_' . $originalFileName . '.webp';
 
-        HomeCard::create([
-            'image' => $imagePath,
-            'image_alt_az' => $request->image_alt_az,
-            'image_alt_en' => $request->image_alt_en,
-            'image_alt_ru' => $request->image_alt_ru,
-            'title_az' => $request->title_az,
-            'title_en' => $request->title_en,
-            'title_ru' => $request->title_ru,
-            'description_az' => $request->description_az,
-            'description_en' => $request->description_en,
-            'description_ru' => $request->description_ru,
-        ]);
+            $imageResource = imagecreatefromstring(file_get_contents($file));
+            $webpPath = $destinationPath . '/' . $webpFileName;
+
+            if ($imageResource) {
+                imagewebp($imageResource, $webpPath, 80);
+                imagedestroy($imageResource);
+
+                $imagePath = 'uploads/homecard/' . $webpFileName;
+                
+                HomeCard::create([
+                    'image' => $imagePath,
+                    'image_alt_az' => $request->image_alt_az,
+                    'image_alt_en' => $request->image_alt_en,
+                    'image_alt_ru' => $request->image_alt_ru,
+                    'title_az' => $request->title_az,
+                    'title_en' => $request->title_en,
+                    'title_ru' => $request->title_ru,
+                    'description_az' => $request->description_az,
+                    'description_en' => $request->description_en,
+                    'description_ru' => $request->description_ru,
+                ]);
+            }
+        }
 
         return redirect()->route('back.pages.home-cards.index')
             ->with('success', 'Home Card uğurla əlavə edildi.');
@@ -88,10 +109,33 @@ class HomeCardController extends Controller
         if ($request->hasFile('image')) {
             // Delete old image
             if ($homeCard->image) {
-                Storage::disk('public')->delete($homeCard->image);
+                $oldImagePath = public_path($homeCard->image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
             }
-            // Store new image
-            $data['image'] = $request->file('image')->store('home-cards', 'public');
+
+            // Upload and convert new image
+            $file = $request->file('image');
+            $destinationPath = public_path('uploads/homecard');
+            
+            // Create directory if it doesn't exist
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+            
+            $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $webpFileName = time() . '_' . $originalFileName . '.webp';
+
+            $imageResource = imagecreatefromstring(file_get_contents($file));
+            $webpPath = $destinationPath . '/' . $webpFileName;
+
+            if ($imageResource) {
+                imagewebp($imageResource, $webpPath, 80);
+                imagedestroy($imageResource);
+
+                $data['image'] = 'uploads/homecard/' . $webpFileName;
+            }
         }
 
         $homeCard->update($data);
@@ -103,7 +147,10 @@ class HomeCardController extends Controller
     public function destroy(HomeCard $homeCard)
     {
         if ($homeCard->image) {
-            Storage::disk('public')->delete($homeCard->image);
+            $imagePath = public_path($homeCard->image);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
         }
         
         $homeCard->delete();

@@ -70,6 +70,12 @@
                                 <span>About</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('back.pages.comments.index') }}">
+                                <i class="mdi mdi-comment"></i>
+                                <span>Comments</span>
+                            </a>
+                        </li>
                          
                        
                     </ul>

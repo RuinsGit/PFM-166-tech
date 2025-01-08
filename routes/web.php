@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\TranslationManageController;
 use App\Http\Controllers\Admin\LogoController;
 use App\Http\Controllers\Admin\HomeCardController;
 use App\Http\Controllers\Admin\AboutController;
+use App\Http\Controllers\Admin\CommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -73,6 +74,10 @@ Route::prefix('admin')->group(function () {
             // About routes
             Route::get('about', [AboutController::class, 'index'])->name('about.index');
             Route::put('about', [AboutController::class, 'update'])->name('about.update');
+
+            // Comment routes
+            Route::resource('comments', CommentController::class);
+            Route::post('comments/status/{id}', [CommentController::class, 'status'])->name('comments.status');
         });     
     });
 });

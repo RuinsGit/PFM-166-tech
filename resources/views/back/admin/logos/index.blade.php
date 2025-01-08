@@ -107,10 +107,18 @@
                                                 @foreach($logos as $logo)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
-                                                        <td><img src="{{ asset($logo->logo_1_image) }}" alt="Logo 1" width="100"></td>
+                                                        <td>
+                                                            <div class="image-preview">
+                                                                <img src="{{ asset($logo->logo_1_image) }}" alt="Logo 1" class="logo-img">
+                                                            </div>
+                                                        </td>
                                                         <td>{{ $logo->logo_title1_az }}</td>
                                                         <td>{{ $logo->logo_alt1_az }}</td>
-                                                        <td><img src="{{ asset($logo->logo_2_image) }}" alt="Logo 2" width="100"></td>
+                                                        <td>
+                                                            <div class="image-preview">
+                                                                <img src="{{ asset($logo->logo_2_image) }}" alt="Logo 2" class="logo-img">
+                                                            </div>
+                                                        </td>
                                                         <td>{{ $logo->logo_title2_az }}</td>
                                                         <td>{{ $logo->logo_alt2_az }}</td>
                                                         <td>
@@ -155,10 +163,18 @@
                                                 @foreach($logos as $logo)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
-                                                        <td><img src="{{ asset($logo->logo_1_image) }}" alt="Logo 1" width="100"></td>
+                                                        <td>
+                                                            <div class="image-preview">
+                                                                <img src="{{ asset($logo->logo_1_image) }}" alt="Logo 1" class="logo-img">
+                                                            </div>
+                                                        </td>
                                                         <td>{{ $logo->logo_title1_en }}</td>
                                                         <td>{{ $logo->logo_alt1_en }}</td>
-                                                        <td><img src="{{ asset($logo->logo_2_image) }}" alt="Logo 2" width="100"></td>
+                                                        <td>
+                                                            <div class="image-preview">
+                                                                <img src="{{ asset($logo->logo_2_image) }}" alt="Logo 2" class="logo-img">
+                                                            </div>
+                                                        </td>
                                                         <td>{{ $logo->logo_title2_en }}</td>
                                                         <td>{{ $logo->logo_alt2_en }}</td>
                                                         <td>
@@ -203,10 +219,18 @@
                                                 @foreach($logos as $logo)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
-                                                        <td><img src="{{ asset($logo->logo_1_image) }}" alt="Logo 1" width="100"></td>
+                                                        <td>
+                                                            <div class="image-preview">
+                                                                <img src="{{ asset($logo->logo_1_image) }}" alt="Logo 1" class="logo-img">
+                                                            </div>
+                                                        </td>
                                                         <td>{{ $logo->logo_title1_ru }}</td>
                                                         <td>{{ $logo->logo_alt1_ru }}</td>
-                                                        <td><img src="{{ asset($logo->logo_2_image) }}" alt="Logo 2" width="100"></td>
+                                                        <td>
+                                                            <div class="image-preview">
+                                                                <img src="{{ asset($logo->logo_2_image) }}" alt="Logo 2" class="logo-img">
+                                                            </div>
+                                                        </td>
                                                         <td>{{ $logo->logo_title2_ru }}</td>
                                                         <td>{{ $logo->logo_alt2_ru }}</td>
                                                         <td>
@@ -237,6 +261,135 @@
             </div>
         </div>
     </div>
+
+    <style>
+    .image-preview {
+        width: 100px;
+        height: 100px;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin: 0 auto;
+    }
+
+    .logo-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transition: transform 0.3s ease;
+    }
+
+    .image-preview:hover .logo-img {
+        transform: scale(1.05);
+    }
+
+    .card {
+        border: none;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .nav-tabs {
+        border-bottom: 2px solid #eee;
+        margin-bottom: 20px;
+    }
+
+    .nav-tabs .nav-link {
+        border: none;
+        color: #6c757d;
+        font-weight: 500;
+        padding: 12px 20px;
+        transition: all 0.2s ease;
+    }
+
+    .nav-tabs .nav-link.active {
+        color: #2c3e50;
+        border-bottom: 2px solid #3498db;
+        background: transparent;
+    }
+
+    .nav-tabs .nav-link:hover {
+        border-color: transparent;
+        color: #3498db;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: #2c3e50;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        border-radius: 6px;
+        border: 1px solid #dee2e6;
+        padding: 8px 12px;
+        transition: all 0.2s ease;
+    }
+
+    .form-control:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 8px 16px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        border-radius: 6px;
+    }
+
+    .btn-primary {
+        background-color: #3498db;
+        border-color: #3498db;
+    }
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+        border-color: #2980b9;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .btn-secondary {
+        background-color: #95a5a6;
+        border-color: #95a5a6;
+    }
+
+    .btn-secondary:hover {
+        background-color: #7f8c8d;
+        border-color: #7f8c8d;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .tab-content {
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 0 0 8px 8px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .image-preview {
+            width: 80px;
+            height: 80px;
+        }
+        
+        .nav-tabs .nav-link {
+            padding: 8px 12px;
+        }
+        
+        .btn {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    }
+    </style>
 @endsection
 
 @push('js')
