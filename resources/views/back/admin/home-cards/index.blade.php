@@ -1,6 +1,6 @@
 @extends('back.layouts.master')
 
-@section('title', 'Home Cards')
+@section('title', 'Hero')
 
 @section('content')
     @if(session('success'))
@@ -38,11 +38,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Home Cards</h4>
+                        <h4 class="mb-sm-0">Hero</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Ana səhifə</a></li>
-                                <li class="breadcrumb-item active">Home Cards</li>
+                                <li class="breadcrumb-item active">Hero</li>
                             </ol>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                                 <div class="d-flex justify-content-end mb-4">
                                     @if($cardCount === 0)
                                         <a href="{{ route('back.pages.home-cards.create') }}" class="btn btn-primary">
-                                            <i class="fas fa-plus"></i> Yeni Home Card
+                                            <i class="fas fa-plus"></i> Yeni Hero
                                         </a>
                                     @else
                                         <div class="alert alert-warning">

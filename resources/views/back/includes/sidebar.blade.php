@@ -61,7 +61,7 @@
                     <li>
                             <a href="{{ route('back.pages.home-cards.index') }}">
                                 <i class="mdi mdi-home"></i>
-                                <span>Home Cards</span>
+                                <span>Hero</span>
                             </a>
                         </li>
                          

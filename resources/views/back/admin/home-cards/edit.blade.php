@@ -1,6 +1,6 @@
 @extends('back.layouts.master')
 
-@section('title', 'Home Card Düzənlə')
+@section('title', 'Hero Düzənlə')
 
 @section('content')
 <div class="page-content">
@@ -8,11 +8,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">Home Card Düzənlə</h4>
+                    <h4 class="mb-sm-0">Hero Düzənlə</h4>
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Ana səhifə</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('back.pages.home-cards.index') }}">Home Cards</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('back.pages.home-cards.index') }}">Hero</a></li>
                             <li class="breadcrumb-item active">Düzənlə</li>
                         </ol>
                     </div>
