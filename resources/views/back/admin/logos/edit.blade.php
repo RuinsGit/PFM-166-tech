@@ -82,7 +82,7 @@
                                     <div class="tab-pane active" id="az" role="tabpanel">
                                         <!-- Logo 1 -->
                                         <div class="mb-3">
-                                            <label for="logo_1_image" class="form-label">Logo 1 Şəkli:</label>
+                                            <label for="logo_1_image" class="form-label">Header logo Şəkli:</label>
                                             <input type="file" class="form-control" name="logo_1_image" accept=".jpeg,.png,.jpg,.gif,.svg">
                                             @if($logo->logo_1_image)
                                                 <img src="{{ asset($logo->logo_1_image) }}" alt="Logo 1" width="100" class="mt-2">
@@ -92,14 +92,14 @@
                                             @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <label for="logo_title1_az" class="form-label">Logo 1 Başlığı (AZ):</label>
+                                            <label for="logo_title1_az" class="form-label">Header logo Başlığı (AZ):</label>
                                             <input type="text" class="form-control" name="logo_title1_az" value="{{ old('logo_title1_az', $logo->logo_title1_az) }}" required>
                                             @error('logo_title1_az')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <label for="logo_alt1_az" class="form-label">Logo 1 Altı (AZ):</label>
+                                            <label for="logo_alt1_az" class="form-label">Header logo ALT (AZ):</label>
                                             <textarea class="form-control" name="logo_alt1_az" rows="4" required>{{ old('logo_alt1_az', $logo->logo_alt1_az) }}</textarea>
                                             @error('logo_alt1_az')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -108,7 +108,7 @@
 
                                         <!-- Logo 2 -->
                                         <div class="mb-3">
-                                            <label for="logo_2_image" class="form-label">Logo 2 Şəkli:</label>
+                                            <label for="logo_2_image" class="form-label">Fotter logo Şəkli:</label>
                                             <input type="file" class="form-control" name="logo_2_image" accept=".jpeg,.png,.jpg,.gif,.svg">
                                             @if($logo->logo_2_image)
                                                 <img src="{{ asset($logo->logo_2_image) }}" alt="Logo 2" width="100" class="mt-2">
@@ -118,14 +118,14 @@
                                             @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <label for="logo_title2_az" class="form-label">Logo 2 Başlığı (AZ):</label>
+                                            <label for="logo_title2_az" class="form-label">Fotter logo Başlığı (AZ):</label>
                                             <input type="text" class="form-control" name="logo_title2_az" value="{{ old('logo_title2_az', $logo->logo_title2_az) }}" required>
                                             @error('logo_title2_az')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <label for="logo_alt2_az" class="form-label">Logo 2 Altı (AZ):</label>
+                                            <label for="logo_alt2_az" class="form-label">Fotter logo ALT (AZ):</label>
                                             <textarea class="form-control" name="logo_alt2_az" rows="4" required>{{ old('logo_alt2_az', $logo->logo_alt2_az) }}</textarea>
                                             @error('logo_alt2_az')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -137,7 +137,7 @@
                                     <div class="tab-pane" id="en" role="tabpanel">
                                         <!-- Logo 1 -->
                                         <div class="mb-3">
-                                            <label for="logo_alt1_en" class="form-label">Logo 1 Altı (EN):</label>
+                                            <label for="logo_alt1_en" class="form-label">Header logo ALT (EN):</label>
                                             <textarea class="form-control" name="logo_alt1_en" rows="4" required>{{ old('logo_alt1_en', $logo->logo_alt1_en) }}</textarea>
                                             @error('logo_alt1_en')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -145,7 +145,7 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="logo_title1_en" class="form-label">Logo 1 Başlığı (EN):</label>
+                                            <label for="logo_title1_en" class="form-label">Header logo Başlığı (EN):</label>
                                             <input type="text" class="form-control" name="logo_title1_en" value="{{ old('logo_title1_en', $logo->logo_title1_en) }}" required>
                                             @error('logo_title1_en')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -153,7 +153,7 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="logo_alt2_en" class="form-label">Logo 2 Altı (EN):</label>
+                                            <label for="logo_alt2_en" class="form-label">Fotter logo ALT (EN):</label>
                                             <textarea class="form-control" name="logo_alt2_en" rows="4" required>{{ old('logo_alt2_en', $logo->logo_alt2_en) }}</textarea>
                                             @error('logo_alt2_en')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -161,7 +161,7 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="logo_title2_en" class="form-label">Logo 2 Başlığı (EN):</label>
+                                            <label for="logo_title2_en" class="form-label">Fotter logo Başlığı (EN):</label>
                                             <input type="text" class="form-control" name="logo_title2_en" value="{{ old('logo_title2_en', $logo->logo_title2_en) }}" required>
                                             @error('logo_title2_en')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -173,7 +173,7 @@
                                     <div class="tab-pane" id="ru" role="tabpanel">
                                         <!-- Logo 1 -->
                                         <div class="mb-3">
-                                            <label for="logo_alt1_ru" class="form-label">Logo 1 Altı (RU):</label>
+                                            <label for="logo_alt1_ru" class="form-label">Header logo ALT (RU):</label>
                                             <textarea class="form-control" name="logo_alt1_ru" rows="4" required>{{ old('logo_alt1_ru', $logo->logo_alt1_ru) }}</textarea>
                                             @error('logo_alt1_ru')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -181,7 +181,7 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="logo_title1_ru" class="form-label">Logo 1 Başlığı (RU):</label>
+                                            <label for="logo_title1_ru" class="form-label">Header logo Başlığı (RU):</label>
                                             <input type="text" class="form-control" name="logo_title1_ru" value="{{ old('logo_title1_ru', $logo->logo_title1_ru) }}" required>
                                             @error('logo_title1_ru')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -189,7 +189,7 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="logo_alt2_ru" class="form-label">Logo 2 Altı (RU):</label>
+                                            <label for="logo_alt2_ru" class="form-label">Fotter logo ALT (RU):</label>
                                             <textarea class="form-control" name="logo_alt2_ru" rows="4" required>{{ old('logo_alt2_ru', $logo->logo_alt2_ru) }}</textarea>
                                             @error('logo_alt2_ru')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -197,7 +197,7 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="logo_title2_ru" class="form-label">Logo 2 Başlığı (RU):</label>
+                                            <label for="logo_title2_ru" class="form-label">Fotter logo Başlığı (RU):</label>
                                             <input type="text" class="form-control" name="logo_title2_ru" value="{{ old('logo_title2_ru', $logo->logo_title2_ru) }}" required>
                                             @error('logo_title2_ru')
                                                 <div class="text-danger">{{ $message }}</div>

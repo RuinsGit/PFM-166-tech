@@ -93,12 +93,12 @@
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Logo 1</th>
-                                                    <th>Logo 1 Başlığı (AZ)</th>
-                                                    <th>Logo 1 Altı (AZ)</th>
-                                                    <th>Logo 2</th>
-                                                    <th>Logo 2 Başlığı (AZ)</th>
-                                                    <th>Logo 2 Altı (AZ)</th>
+                                                    <th>Header logo Şəkli</th>
+                                                    <th>Header logo Başlığı (AZ)</th>
+                                                    <th>Header logo ALT (AZ)</th>
+                                                    <th>Fotter logo Şəkli</th>
+                                                    <th>Fotter logo Başlığı (AZ)</th>
+                                                    <th>Fotter logo ALT (AZ)</th>
                                                     <th>Status</th>
                                                     <th>Əməliyyatlar</th>
                                                 </tr>
@@ -141,12 +141,12 @@
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Logo 1</th>
-                                                    <th>Logo 1 Başlığı (EN)</th>
-                                                    <th>Logo 1 Altı (EN)</th>
-                                                    <th>Logo 2</th>
-                                                    <th>Logo 2 Başlığı (EN)</th>
-                                                    <th>Logo 2 Altı (EN)</th>
+                                                    <th>Header logo Şəkli</th>
+                                                    <th>Header logo Başlığı (EN)</th>
+                                                    <th>Header logo ALT (EN)</th>
+                                                    <th>Fotter logo Şəkli</th>
+                                                    <th>Fotter logo Başlığı (EN)</th>
+                                                    <th>Fotter logo ALT (EN)</th>
                                                     <th>Status</th>
                                                     <th>Actions</th>
                                                 </tr>
@@ -189,12 +189,12 @@
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Logo 1</th>
-                                                    <th>Logo 1 Başlığı (RU)</th>
-                                                    <th>Logo 1 Altı (RU)</th>
-                                                    <th>Logo 2</th>
-                                                    <th>Logo 2 Başlığı (RU)</th>
-                                                    <th>Logo 2 Altı (RU)</th>
+                                                    <th>Header logo Şəkli</th>
+                                                    <th>Header logo Başlığı (RU)</th>
+                                                    <th>Header logo ALT (RU)</th>
+                                                    <th>Fotter logo Şəkli</th>
+                                                    <th>Fotter logo Başlığı (RU)</th>
+                                                    <th>Fotter logo ALT (RU)</th>
                                                     <th>Status</th>
                                                     <th>Действия</th>
                                                 </tr>

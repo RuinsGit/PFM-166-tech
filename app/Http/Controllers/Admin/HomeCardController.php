@@ -1,0 +1,114 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\HomeCard;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+class HomeCardController extends Controller
+{
+    public function index()
+    {
+        $homeCards = HomeCard::all();
+        $cardCount = HomeCard::count();
+        return view('back.admin.home-cards.index', compact('homeCards', 'cardCount'));
+    }
+
+    public function create()
+    {
+        $cardCount = HomeCard::count();
+        return view('back.admin.home-cards.create', compact('cardCount'));
+    }
+
+    public function store(Request $request)
+    {
+        $cardCount = HomeCard::count();
+        
+        if ($cardCount >= 1) {
+            return redirect()->route('back.pages.home-cards.index')
+                ->with('error', 'Hal hazırda home card mövcuddur. yeni home card yaratmaq üçün əvvəlcə əvvəlcəki home cardı silin ya da redaktə edin.');
+        }
+
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image_alt_az' => 'required|string',
+            'image_alt_en' => 'required|string',
+            'image_alt_ru' => 'required|string',
+            'title_az' => 'required|string',
+            'title_en' => 'required|string',
+            'title_ru' => 'required|string',
+            'description_az' => 'required|string',
+            'description_en' => 'required|string',
+            'description_ru' => 'required|string',
+        ]);
+
+        $imagePath = $request->file('image')->store('home-cards', 'public');
+
+        HomeCard::create([
+            'image' => $imagePath,
+            'image_alt_az' => $request->image_alt_az,
+            'image_alt_en' => $request->image_alt_en,
+            'image_alt_ru' => $request->image_alt_ru,
+            'title_az' => $request->title_az,
+            'title_en' => $request->title_en,
+            'title_ru' => $request->title_ru,
+            'description_az' => $request->description_az,
+            'description_en' => $request->description_en,
+            'description_ru' => $request->description_ru,
+        ]);
+
+        return redirect()->route('back.pages.home-cards.index')
+            ->with('success', 'Home Card uğurla əlavə edildi.');
+    }
+
+    public function edit(HomeCard $homeCard)
+    {
+        return view('back.admin.home-cards.edit', compact('homeCard'));
+    }
+
+    public function update(Request $request, HomeCard $homeCard)
+    {
+        $request->validate([
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image_alt_az' => 'required|string',
+            'image_alt_en' => 'required|string',
+            'image_alt_ru' => 'required|string',
+            'title_az' => 'required|string',
+            'title_en' => 'required|string',
+            'title_ru' => 'required|string',
+            'description_az' => 'required|string',
+            'description_en' => 'required|string',
+            'description_ru' => 'required|string',
+        ]);
+
+        $data = $request->except('image');
+
+        if ($request->hasFile('image')) {
+            // Delete old image
+            if ($homeCard->image) {
+                Storage::disk('public')->delete($homeCard->image);
+            }
+            // Store new image
+            $data['image'] = $request->file('image')->store('home-cards', 'public');
+        }
+
+        $homeCard->update($data);
+
+        return redirect()->route('back.pages.home-cards.index')
+            ->with('success', 'Home Card uğurla yeniləndi.');
+    }
+
+    public function destroy(HomeCard $homeCard)
+    {
+        if ($homeCard->image) {
+            Storage::disk('public')->delete($homeCard->image);
+        }
+        
+        $homeCard->delete();
+
+        return redirect()->route('back.pages.home-cards.index')
+            ->with('success', 'Home Card uğurla silindi.');
+    }
+}

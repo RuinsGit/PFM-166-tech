@@ -30,7 +30,7 @@
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="mdi mdi-application-cog"></i>
+                        <i class="ri-settings-3-line"></i>
                         <span>Tənzimləmələr</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -47,6 +47,24 @@
                                 <span>Logolar</span>
                             </a>
                         </li>   
+                       
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-home-line"></i>
+                        <span>Ana Səhifə</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                       
+                    <li>
+                            <a href="{{ route('back.pages.home-cards.index') }}">
+                                <i class="mdi mdi-home"></i>
+                                <span>Home Cards</span>
+                            </a>
+                        </li>
+                         
                        
                     </ul>
                 </li>
