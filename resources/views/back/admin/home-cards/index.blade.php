@@ -63,7 +63,7 @@
                         <div class="card-body">
                             @if($cardCount > 0)
                                 <div class="alert alert-warning w-50 ms-auto">
-                                    Hal hazırda {{ $cardCount }} ədəd Home Card mövcuddur.
+                                Hal hazırda logo mövcuddur. yeni logo yaratmaq üçün əvvəlcə əvvəlcəki logo'nu silin. ya da redaktə edin.
                                 </div>
                             @else
                                 <div class="alert alert-warning w-50 ms-auto">
