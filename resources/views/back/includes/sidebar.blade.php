@@ -82,6 +82,14 @@
                        
                     </ul>
 
+
+                    <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-information-line"></i>
+                        <span>Biz kimik?</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                       
                     <li>
                             <a href="{{ route('back.pages.leaders.index') }}">
                                 <i class="ri-user-line"></i>
@@ -95,6 +103,19 @@
                                 <span>About Hero</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('back.pages.about-section.index') }}">
+                                <i class="ri-information-line"></i>
+                                <span>About Section</span>
+                            </a>
+                        </li>
+                        
+
+                         
+                       
+                    </ul>
+
+                    
 
 
                 </li>

@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\LeaderController;
 use App\Http\Controllers\Admin\AboutHeroController;
+use App\Http\Controllers\Admin\AboutSectionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -97,6 +98,14 @@ Route::prefix('admin')->group(function () {
             Route::get('about-hero/{id}/edit', [AboutHeroController::class, 'edit'])->name('about-hero.edit');
             Route::put('about-hero/{id}', [AboutHeroController::class, 'update'])->name('about-hero.update');
             Route::delete('about-hero/{id}', [AboutHeroController::class, 'destroy'])->name('about-hero.destroy');
+
+            // About Section Routes
+            Route::get('about-section', [AboutSectionController::class, 'index'])->name('about-section.index');
+            Route::get('about-section/create', [AboutSectionController::class, 'create'])->name('about-section.create');
+            Route::post('about-section', [AboutSectionController::class, 'store'])->name('about-section.store');
+            Route::get('about-section/{id}/edit', [AboutSectionController::class, 'edit'])->name('about-section.edit');
+            Route::put('about-section/{id}', [AboutSectionController::class, 'update'])->name('about-section.update');
+            Route::delete('about-section/{id}', [AboutSectionController::class, 'destroy'])->name('about-section.destroy');
         });     
     });
 });
