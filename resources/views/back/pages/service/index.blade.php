@@ -1,216 +1,271 @@
 @extends('back.layouts.master')
 
+@section('title', 'Services')
+
 @section('content')
     <div class="page-content">
         <div class="container-fluid">
-
-            <!-- start page title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Xidmətlər</h4>
-
+                        <h4 class="mb-sm-0">Services</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Ana səhifə</a></li>
-                                <li class="breadcrumb-item active">Xidmətlər</li>
+                                <li class="breadcrumb-item active">Services</li>
                             </ol>
                         </div>
-
-                    </div>
-                    <div class="mb-3">
-                        <a href="{{ route('admin.service.create') }}" class="btn btn-primary">
-                            <i class="mdi mdi-plus"></i>
-                        </a>
                     </div>
                 </div>
             </div>
-            <!-- end page title -->
 
             <div class="row">
-                <div class="col-xl-12">
+                <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-pills nav-justified" role="tablist">
-                                <li class="nav-item waves-effect waves-light">
-                                    <a class="nav-link active" data-bs-toggle="tab" href="#az" role="tab">
-                                        <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                                        <span class="d-none d-sm-block">AZ</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item waves-effect waves-light">
-                                    <a class="nav-link" data-bs-toggle="tab" href="#en" role="tab">
-                                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
-                                        <span class="d-none d-sm-block">EN</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item waves-effect waves-light">
-                                    <a class="nav-link" data-bs-toggle="tab" href="#ru" role="tab">
-                                        <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
-                                        <span class="d-none d-sm-block">RU</span>
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <!-- Tab panes -->
-                            <div class="tab-content p-3 text-muted">
-                                <div class="tab-pane active" id="az" role="tabpanel">
-                                    <div class="table-responsive">
-                                        <table class="table table-responsive mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>İkon</th>
-                                                    <th>Başlıq (Az)</th>
-                                                    <th>Yaranma tarixi</th>
-                                                    <th>Əməliyyatlar</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($services as $service)
-                                                    <tr>
-                                                        <td>{{ $loop->iteration }}</td>
-                                                        <td>
-                                                            <div
-                                                                style="display:flex;align-items:center;justify-content:center;background-color: #446981; width:100px;height:100px">
-                                                                <img src="{{ asset($service->icon) }}" width="70"
-                                                                    height="70" alt="">
-                                                            </div>
-                                                        </td>
-                                                        <td>{{ $service->title_az }}</td>
-                                                        <td>{{ $service->created_at->format('d/m/Y H:i') }}</td>
-                                                        <td>
-                                                            <a href="{{ route('admin.service.edit', ['id' => $service->id]) }}"
-                                                                class="btn btn-success">
-                                                                <i class="mdi mdi-account-edit"></i>
-                                                            </a>
-                                                            <a class="btn btn-danger"
-                                                                onclick="deleteItem({{ $service->id }})">
-                                                                <i class="mdi mdi-delete"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="en" role="tabpanel">
-                                    <div class="table-responsive">
-                                        <table class="table table-responsive mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>İkon</th>
-                                                    <th>Başlıq (En)</th>
-                                                    <th>Yaranma tarixi</th>
-                                                    <th>Əməliyyatlar</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($services as $service)
-                                                    <tr>
-                                                        <td>{{ $loop->iteration }}</td>
-                                                        <td>
-                                                            <div
-                                                                style="display:flex;align-items:center;justify-content:center;background-color: #446981; width:100px;height:100px">
-                                                                <img src="{{ asset($service->icon) }}" width="70"
-                                                                    height="70" alt="">
-                                                            </div>
-                                                        </td>
-                                                        <td>{{ $service->title_en }}</td>
-                                                        <td>{{ $service->created_at->format('d/m/Y H:i') }}</td>
-                                                        <td>
-                                                            <a href="{{ route('admin.service.edit', ['id' => $service->id]) }}"
-                                                                class="btn btn-success">
-                                                                <i class="mdi mdi-account-edit"></i>
-                                                            </a>
-                                                            <a class="btn btn-danger"
-                                                                onclick="deleteItem({{ $service->id }})">
-                                                                <i class="mdi mdi-delete"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="ru" role="tabpanel">
-                                    <div class="table-responsive">
-                                        <table class="table table-responsive mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>İkon</th>
-                                                    <th>Başlıq (Ru)</th>
-                                                    <th>Yaranma tarixi</th>
-                                                    <th>Əməliyyatlar</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($services as $service)
-                                                    <tr>
-                                                        <td>{{ $loop->iteration }}</td>
-                                                        <td>
-                                                            <div
-                                                                style="display:flex;align-items:center;justify-content:center;background-color: #446981; width:100px;height:100px">
-                                                                <img src="{{ asset($service->icon) }}" width="70"
-                                                                    height="70" alt="">
-                                                            </div>
-                                                        </td>
-                                                        <td>{{ $service->title_ru }}</td>
-                                                        <td>{{ $service->created_at->format('d/m/Y H:i') }}</td>
-                                                        <td>
-                                                            <a href="{{ route('admin.service.edit', ['id' => $service->id]) }}"
-                                                                class="btn btn-success">
-                                                                <i class="mdi mdi-account-edit"></i>
-                                                            </a>
-                                                            <a class="btn btn-danger"
-                                                                onclick="deleteItem({{ $service->id }})">
-                                                                <i class="mdi mdi-delete"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                            <div class="col-12 d-flex justify-content-end mb-4">
+                                <a href="{{ route('back.pages.service.create') }}" class="btn btn-primary">
+                                    <i class="fas fa-plus"></i> Yeni
+                                </a>
                             </div>
 
-                            {{-- {{ $services->withQueryString()->links('pagination::bootstrap-5') }} --}}
+                            @if($services->count() > 0)
+                                @foreach($services as $service)
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <h5 class="card-title">Service #{{ $loop->iteration }}</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <!-- Nav tabs -->
+                                            <ul class="nav nav-tabs nav-justified" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" data-bs-toggle="tab" href="#az{{ $service->id }}" role="tab">
+                                                        <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                                                        <span class="d-none d-sm-block">AZ</span>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-bs-toggle="tab" href="#en{{ $service->id }}" role="tab">
+                                                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                                                        <span class="d-none d-sm-block">EN</span>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-bs-toggle="tab" href="#ru{{ $service->id }}" role="tab">
+                                                        <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
+                                                        <span class="d-none d-sm-block">RU</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
 
+                                            <!-- Tab panes -->
+                                            <div class="tab-content p-3">
+                                                <!-- AZ Tab -->
+                                                <div class="tab-pane active" id="az{{ $service->id }}" role="tabpanel">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered mb-0">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td width="200">Şəkil</td>
+                                                                    <td>
+                                                                        <img src="{{ asset($service->image) }}" alt="" 
+                                                                             style="max-width: 100px; max-height: 100px;">
+                                                                        <p class="mt-1">ALT: {{ $service->image_alt_az }}</p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Alt Şəkil</td>
+                                                                    <td>
+                                                                        <img src="{{ asset($service->bottom_image) }}" alt="" 
+                                                                             style="max-width: 100px; max-height: 100px;">
+                                                                        <p class="mt-1">ALT: {{ $service->bottom_image_alt_az }}</p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Meta Title</td>
+                                                                    <td>{{ $service->meta_title_az }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Meta Description</td>
+                                                                    <td>{{ $service->meta_description_az }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Başlıq 1</td>
+                                                                    <td>{{ $service->title1_az }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Mətn 1</td>
+                                                                    <td>{!! $service->text1_az !!}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Başlıq 2</td>
+                                                                    <td>{{ $service->title2_az }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Mətn 2</td>
+                                                                    <td>{!! $service->text2_az !!}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                                <!-- EN Tab -->
+                                                <div class="tab-pane" id="en{{ $service->id }}" role="tabpanel">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered mb-0">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td width="200">Image</td>
+                                                                    <td>
+                                                                        <img src="{{ asset($service->image) }}" alt="" 
+                                                                             style="max-width: 100px; max-height: 100px;">
+                                                                        <p class="mt-1">ALT: {{ $service->image_alt_en }}</p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Bottom Image</td>
+                                                                    <td>
+                                                                        <img src="{{ asset($service->bottom_image) }}" alt="" 
+                                                                             style="max-width: 100px; max-height: 100px;">
+                                                                        <p class="mt-1">ALT: {{ $service->bottom_image_alt_en }}</p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Meta Title</td>
+                                                                    <td>{{ $service->meta_title_en }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Meta Description</td>
+                                                                    <td>{{ $service->meta_description_en }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Title 1</td>
+                                                                    <td>{{ $service->title1_en }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Text 1</td>
+                                                                    <td>{!! $service->text1_en !!}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Title 2</td>
+                                                                    <td>{{ $service->title2_en }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Text 2</td>
+                                                                    <td>{!! $service->text2_en !!}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                                <!-- RU Tab -->
+                                                <div class="tab-pane" id="ru{{ $service->id }}" role="tabpanel">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered mb-0">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td width="200">Изображение</td>
+                                                                    <td>
+                                                                        <img src="{{ asset($service->image) }}" alt="" 
+                                                                             style="max-width: 100px; max-height: 100px;">
+                                                                        <p class="mt-1">ALT: {{ $service->image_alt_ru }}</p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Нижнее Изображение</td>
+                                                                    <td>
+                                                                        <img src="{{ asset($service->bottom_image) }}" alt="" 
+                                                                             style="max-width: 100px; max-height: 100px;">
+                                                                        <p class="mt-1">ALT: {{ $service->bottom_image_alt_ru }}</p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Meta Title</td>
+                                                                    <td>{{ $service->meta_title_ru }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Meta Description</td>
+                                                                    <td>{{ $service->meta_description_ru }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Заголовок 1</td>
+                                                                    <td>{{ $service->title1_ru }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Текст 1</td>
+                                                                    <td>{!! $service->text1_ru !!}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Заголовок 2</td>
+                                                                    <td>{{ $service->title2_ru }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Текст 2</td>
+                                                                    <td>{!! $service->text2_ru !!}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-3">
+                                                <a href="{{ route('back.pages.service.edit', $service->id) }}" 
+                                                   class="btn btn-warning">
+                                                    <i class="fas fa-edit"></i> Redaktə et
+                                                </a>
+                                                <button class="btn btn-danger" onclick="deleteData({{ $service->id }})">
+                                                    <i class="fas fa-trash"></i> Sil
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="text-center">
+                                    <p>Məlumat tapılmadı.</p>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
-        </div> <!-- container-fluid -->
+        </div>
     </div>
-    <!-- End Page-content -->
 @endsection
 
 @push('js')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function deleteData(id) {
+        Swal.fire({
+            title: 'Əminsiniz?',
+            text: "Bu məlumatı silmək istədiyinizə əminsiniz?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Bəli, sil!',
+            cancelButtonText: 'Xeyr'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = `{{ route('back.pages.service.destroy', '') }}/${id}`;
+            }
+        });
+    }
+</script>
+
+@if(session('success'))
     <script>
-        function deleteItem(id) {
-            event.preventDefault();
-            let url = "{{ route('admin.service.destroy', ['id' => ':id']) }}".replace(':id', id);
-            Swal.fire({
-                title: 'Silmək istədiyinizdən əminsiniz mi?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Bəli!',
-                confirmCancelText: 'Xeyr!',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.replace(url);
-                }
-            })
-        }
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "{{ session('success') }}",
+            showConfirmButton: false,
+            timer: 1500
+        });
     </script>
+@endif
 @endpush

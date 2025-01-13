@@ -109,13 +109,20 @@
                                 <span>About Section</span>
                             </a>
                         </li>
+                      
                         
 
                          
                        
                     </ul>
 
-                    
+
+                    <li>
+                            <a href="{{ route('back.pages.service.index') }}">
+                                <i class="ri-service-line"></i>
+                                <span>Services</span>
+                            </a>
+                        </li>
 
 
                 </li>

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\LeaderController;
 use App\Http\Controllers\Admin\AboutHeroController;
 use App\Http\Controllers\Admin\AboutSectionController;
+use App\Http\Controllers\Admin\ServiceController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -106,6 +107,14 @@ Route::prefix('admin')->group(function () {
             Route::get('about-section/{id}/edit', [AboutSectionController::class, 'edit'])->name('about-section.edit');
             Route::put('about-section/{id}', [AboutSectionController::class, 'update'])->name('about-section.update');
             Route::delete('about-section/{id}', [AboutSectionController::class, 'destroy'])->name('about-section.destroy');
+
+            // Service Routes
+            Route::get('service', [ServiceController::class, 'index'])->name('service.index');
+            Route::get('service/create', [ServiceController::class, 'create'])->name('service.create');
+            Route::post('service', [ServiceController::class, 'store'])->name('service.store');
+            Route::get('service/{id}/edit', [ServiceController::class, 'edit'])->name('service.edit');
+            Route::put('service/{id}', [ServiceController::class, 'update'])->name('service.update');
+            Route::delete('service/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
         });     
     });
 });
