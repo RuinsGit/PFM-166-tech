@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\LeaderController;
 use App\Http\Controllers\Admin\AboutHeroController;
 use App\Http\Controllers\Admin\AboutSectionController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\KeyfiyetController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -115,6 +116,14 @@ Route::prefix('admin')->group(function () {
             Route::get('service/{id}/edit', [ServiceController::class, 'edit'])->name('service.edit');
             Route::put('service/{id}', [ServiceController::class, 'update'])->name('service.update');
             Route::delete('service/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
+
+            // Keyfiyet Routes
+            Route::get('keyfiyet', [KeyfiyetController::class, 'index'])->name('keyfiyet.index');
+            Route::get('keyfiyet/create', [KeyfiyetController::class, 'create'])->name('keyfiyet.create');
+            Route::post('keyfiyet', [KeyfiyetController::class, 'store'])->name('keyfiyet.store');
+            Route::get('keyfiyet/{id}/edit', [KeyfiyetController::class, 'edit'])->name('keyfiyet.edit');
+            Route::put('keyfiyet/{id}', [KeyfiyetController::class, 'update'])->name('keyfiyet.update');
+            Route::delete('keyfiyet/{id}', [KeyfiyetController::class, 'destroy'])->name('keyfiyet.destroy');
         });     
     });
 });

@@ -94,28 +94,28 @@
                                                 @enderror
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Başlıq 1</label>
+                                                <label class="form-label">Başlıq</label>
                                                 <input type="text" name="title1_az" class="form-control @error('title1_az') is-invalid @enderror" value="{{ old('title1_az') }}">
                                                 @error('title1_az')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Mətn 1</label>
+                                                <label class="form-label">Mətn</label>
                                                 <textarea name="text1_az" class="form-control summernote @error('text1_az') is-invalid @enderror">{{ old('text1_az') }}</textarea>
                                                 @error('text1_az')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Başlıq 2</label>
+                                                <label class="form-label">Alt Başlıq</label>
                                                 <input type="text" name="title2_az" class="form-control @error('title2_az') is-invalid @enderror" value="{{ old('title2_az') }}">
                                                 @error('title2_az')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Mətn 2</label>
+                                                <label class="form-label">Alt Mətn</label>
                                                 <textarea name="text2_az" class="form-control summernote @error('text2_az') is-invalid @enderror">{{ old('text2_az') }}</textarea>
                                                 @error('text2_az')
                                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -145,19 +145,19 @@
                                                 <textarea name="meta_description_en" class="form-control">{{ old('meta_description_en') }}</textarea>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Title 1</label>
+                                                <label class="form-label">Title</label>
                                                 <input type="text" name="title1_en" class="form-control" value="{{ old('title1_en') }}">
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Text 1</label>
+                                                <label class="form-label">Text</label>
                                                 <textarea name="text1_en" class="form-control summernote">{{ old('text1_en') }}</textarea>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Title 2</label>
+                                                <label class="form-label">Alt Title</label>
                                                 <input type="text" name="title2_en" class="form-control" value="{{ old('title2_en') }}">
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Text 2</label>
+                                                <label class="form-label">Alt Text</label>
                                                 <textarea name="text2_en" class="form-control summernote">{{ old('text2_en') }}</textarea>
                                             </div>
                                         </div>
@@ -184,19 +184,19 @@
                                                 <textarea name="meta_description_ru" class="form-control">{{ old('meta_description_ru') }}</textarea>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Заголовок 1</label>
+                                                <label class="form-label">Заголовок</label>
                                                 <input type="text" name="title1_ru" class="form-control" value="{{ old('title1_ru') }}">
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Текст 1</label>
+                                                <label class="form-label">Текст</label>
                                                 <textarea name="text1_ru" class="form-control summernote">{{ old('text1_ru') }}</textarea>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Заголовок 2</label>
+                                                <label class="form-label">Alt Заголовок</label>
                                                 <input type="text" name="title2_ru" class="form-control" value="{{ old('title2_ru') }}">
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Текст 2</label>
+                                                <label class="form-label">Alt Текст</label>
                                                 <textarea name="text2_ru" class="form-control summernote">{{ old('text2_ru') }}</textarea>
                                             </div>
                                         </div>

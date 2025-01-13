@@ -33,7 +33,7 @@
                                 @foreach($services as $service)
                                     <div class="card mb-4">
                                         <div class="card-header">
-                                            <h5 class="card-title">Service #{{ $loop->iteration }}</h5>
+                                            <h5 class="card-title">Service </h5>
                                         </div>
                                         <div class="card-body">
                                             <!-- Nav tabs -->
@@ -90,19 +90,19 @@
                                                                     <td>{{ $service->meta_description_az }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Başlıq 1</td>
+                                                                    <td>Başlıq</td>
                                                                     <td>{{ $service->title1_az }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Mətn 1</td>
+                                                                    <td>Mətn</td>
                                                                     <td>{!! $service->text1_az !!}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Başlıq 2</td>
+                                                                    <td>Alt Başlıq</td>
                                                                     <td>{{ $service->title2_az }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Mətn 2</td>
+                                                                    <td>Alt Mətn</td>
                                                                     <td>{!! $service->text2_az !!}</td>
                                                                 </tr>
                                                             </tbody>
@@ -140,19 +140,19 @@
                                                                     <td>{{ $service->meta_description_en }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Title 1</td>
+                                                                    <td>Title</td>
                                                                     <td>{{ $service->title1_en }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Text 1</td>
+                                                                    <td>Text</td>
                                                                     <td>{!! $service->text1_en !!}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Title 2</td>
+                                                                    <td>Alt Title</td>
                                                                     <td>{{ $service->title2_en }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Text 2</td>
+                                                                    <td>Alt Text</td>
                                                                     <td>{!! $service->text2_en !!}</td>
                                                                 </tr>
                                                             </tbody>
@@ -190,19 +190,19 @@
                                                                     <td>{{ $service->meta_description_ru }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Заголовок 1</td>
+                                                                    <td>Заголовок </td>
                                                                     <td>{{ $service->title1_ru }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Текст 1</td>
+                                                                    <td>Текст</td>
                                                                     <td>{!! $service->text1_ru !!}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Заголовок 2</td>
+                                                                    <td>Alt Заголовок</td>
                                                                     <td>{{ $service->title2_ru }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Текст 2</td>
+                                                                    <td>Alt Текст</td>
                                                                     <td>{!! $service->text2_ru !!}</td>
                                                                 </tr>
                                                             </tbody>
@@ -223,6 +223,38 @@
                                         </div>
                                     </div>
                                 @endforeach
+
+                                <!-- Pagination Links -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <nav>
+                                            <ul class="pagination justify-content-center">
+                                                {{-- Previous Page Link --}}
+                                                @if ($services->onFirstPage())
+                                                    <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                                                @else
+                                                    <li class="page-item"><a class="page-link" href="{{ $services->previousPageUrl() }}" rel="prev">&laquo;</a></li>
+                                                @endif
+
+                                                {{-- Pagination Elements --}}
+                                                @foreach ($services->getUrlRange(1, $services->lastPage()) as $page => $url)
+                                                    @if ($page == $services->currentPage())
+                                                        <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
+                                                    @else
+                                                        <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+                                                    @endif
+                                                @endforeach
+
+                                                {{-- Next Page Link --}}
+                                                @if ($services->hasMorePages())
+                                                    <li class="page-item"><a class="page-link" href="{{ $services->nextPageUrl() }}" rel="next">&raquo;</a></li>
+                                                @else
+                                                    <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                                                @endif
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
                             @else
                                 <div class="text-center">
                                     <p>Məlumat tapılmadı.</p>

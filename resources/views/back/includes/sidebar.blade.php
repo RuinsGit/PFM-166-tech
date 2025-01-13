@@ -123,6 +123,12 @@
                                 <span>Services</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('back.pages.keyfiyet.index') }}">
+                                <i class="ri-star-line"></i>
+                                <span>Keyfiyet</span>
+                            </a>
+                        </li>
 
 
                 </li>
