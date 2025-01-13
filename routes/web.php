@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\HomeCardController;
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\LeaderController;
+use App\Http\Controllers\Admin\AboutHeroController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -88,6 +89,14 @@ Route::prefix('admin')->group(function () {
             Route::put('leaders/{id}', [LeaderController::class, 'update'])->name('leaders.update');
             Route::delete('leaders/{id}', [LeaderController::class, 'destroy'])->name('leaders.destroy');
             Route::post('leaders/status/{id}', [LeaderController::class, 'status'])->name('leaders.status');
+
+            // About Hero Routes
+            Route::get('about-hero', [AboutHeroController::class, 'index'])->name('about-hero.index');
+            Route::get('about-hero/create', [AboutHeroController::class, 'create'])->name('about-hero.create');
+            Route::post('about-hero', [AboutHeroController::class, 'store'])->name('about-hero.store');
+            Route::get('about-hero/{id}/edit', [AboutHeroController::class, 'edit'])->name('about-hero.edit');
+            Route::put('about-hero/{id}', [AboutHeroController::class, 'update'])->name('about-hero.update');
+            Route::delete('about-hero/{id}', [AboutHeroController::class, 'destroy'])->name('about-hero.destroy');
         });     
     });
 });

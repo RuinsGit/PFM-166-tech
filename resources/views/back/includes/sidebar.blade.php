@@ -84,8 +84,15 @@
 
                     <li>
                             <a href="{{ route('back.pages.leaders.index') }}">
-                                <i class="mdi mdi-account"></i>
-                                <span>Liderlər</span>
+                                <i class="ri-user-line"></i>
+                                <span>Komandamız</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('back.pages.about-hero.index') }}">
+                                <i class="ri-information-line"></i>
+                                <span>About Hero</span>
                             </a>
                         </li>
 
