@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\LogoController;
 use App\Http\Controllers\Admin\HomeCardController;
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\LeaderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -78,6 +79,15 @@ Route::prefix('admin')->group(function () {
             // Comment routes
             Route::resource('comments', CommentController::class);
             Route::post('comments/status/{id}', [CommentController::class, 'status'])->name('comments.status');
+
+            // Leaders Routes
+            Route::get('leaders', [LeaderController::class, 'index'])->name('leaders.index');
+            Route::get('leaders/create', [LeaderController::class, 'create'])->name('leaders.create');
+            Route::post('leaders', [LeaderController::class, 'store'])->name('leaders.store');
+            Route::get('leaders/{id}/edit', [LeaderController::class, 'edit'])->name('leaders.edit');
+            Route::put('leaders/{id}', [LeaderController::class, 'update'])->name('leaders.update');
+            Route::delete('leaders/{id}', [LeaderController::class, 'destroy'])->name('leaders.destroy');
+            Route::post('leaders/status/{id}', [LeaderController::class, 'status'])->name('leaders.status');
         });     
     });
 });

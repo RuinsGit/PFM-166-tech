@@ -76,9 +76,20 @@
                                 <span>Comments</span>
                             </a>
                         </li>
+                        
+
                          
                        
                     </ul>
+
+                    <li>
+                            <a href="{{ route('back.pages.leaders.index') }}">
+                                <i class="mdi mdi-account"></i>
+                                <span>Liderlər</span>
+                            </a>
+                        </li>
+
+
                 </li>
             </ul>
         </div>
