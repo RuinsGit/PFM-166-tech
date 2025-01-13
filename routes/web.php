@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\AboutHeroController;
 use App\Http\Controllers\Admin\AboutSectionController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\KeyfiyetController;
+use App\Http\Controllers\Admin\PortfolioTypeController;
+use App\Http\Controllers\Admin\PortfolioController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -124,6 +126,22 @@ Route::prefix('admin')->group(function () {
             Route::get('keyfiyet/{id}/edit', [KeyfiyetController::class, 'edit'])->name('keyfiyet.edit');
             Route::put('keyfiyet/{id}', [KeyfiyetController::class, 'update'])->name('keyfiyet.update');
             Route::delete('keyfiyet/{id}', [KeyfiyetController::class, 'destroy'])->name('keyfiyet.destroy');
+
+            // Portfolio Type Routes
+            Route::get('portfolio-type', [PortfolioTypeController::class, 'index'])->name('portfolio_type.index');
+            Route::get('portfolio-type/create', [PortfolioTypeController::class, 'create'])->name('portfolio_type.create');
+            Route::post('portfolio-type', [PortfolioTypeController::class, 'store'])->name('portfolio_type.store');
+            Route::get('portfolio-type/{id}/edit', [PortfolioTypeController::class, 'edit'])->name('portfolio_type.edit');
+            Route::put('portfolio-type/{id}', [PortfolioTypeController::class, 'update'])->name('portfolio_type.update');
+            Route::delete('portfolio-type/{id}', [PortfolioTypeController::class, 'destroy'])->name('portfolio_type.destroy');
+
+            // Portfolio routes
+            Route::get('portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
+            Route::get('portfolio/create', [PortfolioController::class, 'create'])->name('portfolio.create');
+            Route::post('portfolio', [PortfolioController::class, 'store'])->name('portfolio.store');
+            Route::get('portfolio/{id}/edit', [PortfolioController::class, 'edit'])->name('portfolio.edit');
+            Route::put('portfolio/{id}', [PortfolioController::class, 'update'])->name('portfolio.update');
+            Route::delete('portfolio/{id}', [PortfolioController::class, 'destroy'])->name('portfolio.destroy');
         });     
     });
 });

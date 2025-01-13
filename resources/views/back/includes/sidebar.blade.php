@@ -129,6 +129,18 @@
                                 <span>Keyfiyet</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('back.pages.portfolio_type.index') }}">
+                                <i class="ri-brackets-line"></i>
+                                <span>Portfolio Type</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('back.pages.portfolio.index') }}">
+                                <i class="ri-brackets-line"></i>
+                                <span>Portfolio</span>
+                            </a>
+                        </li>
 
 
                 </li>
