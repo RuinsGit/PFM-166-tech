@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\VacationHeroController;
 use App\Http\Controllers\Admin\VacationController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Admin\ContactRequestController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -215,6 +216,15 @@ Route::prefix('admin')->group(function () {
             Route::get('contact/{id}/edit', [ContactController::class, 'edit'])->name('contact.edit');
             Route::put('contact/{id}', [ContactController::class, 'update'])->name('contact.update');
             Route::delete('contact/{id}', [ContactController::class, 'destroy'])->name('contact.destroy');
+
+            // Contact Request routes
+            Route::get('contact_requests', [ContactRequestController::class, 'index'])->name('contact_requests.index');
+            Route::get('contact_requests/create', [ContactRequestController::class, 'create'])->name('contact_requests.create');
+            Route::post('contact_requests', [ContactRequestController::class, 'store'])->name('contact_requests.store');
+            Route::get('contact_requests/{id}/edit', [ContactRequestController::class, 'edit'])->name('contact_requests.edit');
+            Route::put('contact_requests/{id}', [ContactRequestController::class, 'update'])->name('contact_requests.update');
+            Route::delete('contact_requests/{id}', [ContactRequestController::class, 'destroy'])->name('contact_requests.destroy');
+            Route::get('contact_requests/{id}', [ContactRequestController::class, 'show'])->name('contact_requests.show');
         });     
     });
 });

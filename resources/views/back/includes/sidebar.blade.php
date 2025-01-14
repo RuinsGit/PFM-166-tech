@@ -212,6 +212,12 @@
                             <span>Əlaqə Məlumatları</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('back.pages.contact_requests.index') }}">
+                            <i class="ri-phone-line"></i>
+                            <span>Əlaqə Müraciətləri</span>
+                        </a>
+                    </li>
 
                          
                        
