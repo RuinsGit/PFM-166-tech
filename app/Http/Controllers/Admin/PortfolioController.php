@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Portfolio;
+use App\Models\PortfolioType;
 use Illuminate\Http\Request;
 
 class PortfolioController extends Controller
@@ -16,7 +17,8 @@ class PortfolioController extends Controller
 
     public function create()
     {
-        return view('back.pages.portfolio.create');
+        $portfolioTypes = PortfolioType::where('status', 1)->get();
+        return view('back.pages.portfolio.create', compact('portfolioTypes'));
     }
 
     public function store(Request $request)
@@ -42,6 +44,7 @@ class PortfolioController extends Controller
             'meta_description_az' => 'nullable|string',
             'meta_description_en' => 'nullable|string',
             'meta_description_ru' => 'nullable|string',
+            'portfolio_type_id' => 'required|exists:portfolio_types,id',
         ]);
 
         // Ana resmi yükle
@@ -104,7 +107,8 @@ class PortfolioController extends Controller
     public function edit($id)
     {
         $portfolio = Portfolio::findOrFail($id);
-        return view('back.pages.portfolio.edit', compact('portfolio'));
+        $portfolioTypes = PortfolioType::where('status', 1)->get();
+        return view('back.pages.portfolio.edit', compact('portfolio', 'portfolioTypes'));
     }
 
     public function update(Request $request, $id)
@@ -132,6 +136,7 @@ class PortfolioController extends Controller
             'meta_description_az' => 'nullable|string',
             'meta_description_en' => 'nullable|string',
             'meta_description_ru' => 'nullable|string',
+            'portfolio_type_id' => 'required|exists:portfolio_types,id',
         ]);
 
         // Ana resmi güncelle

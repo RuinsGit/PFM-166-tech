@@ -137,7 +137,7 @@
                         </li>
                         <li>
                             <a href="{{ route('back.pages.portfolio.index') }}">
-                                <i class="ri-brackets-line"></i>
+                                <i class="ri-profile-line"></i>
                                 <span>Portfolio</span>
                             </a>
                         </li>

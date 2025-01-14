@@ -30,6 +30,8 @@ return new class extends Migration
             $table->text('meta_description_az')->nullable(); 
             $table->text('meta_description_en')->nullable(); 
             $table->text('meta_description_ru')->nullable(); 
+            $table->unsignedBigInteger('portfolio_type_id')->nullable();
+            $table->foreign('portfolio_type_id')->references('id')->on('portfolio_types')->onDelete('set null');
             $table->timestamps();
         });
     }

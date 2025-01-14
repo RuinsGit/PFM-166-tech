@@ -227,6 +227,21 @@
                                     </div>
                                 </div>
 
+                                <div class="mb-3">
+                                    <label class="form-label">Portfolio Tipi</label>
+                                    <select name="portfolio_type_id" class="form-control @error('portfolio_type_id') is-invalid @enderror" required>
+                                        <option value="">Portfolio tipi seçin</option>
+                                        @foreach($portfolioTypes as $type)
+                                            <option value="{{ $type->id }}" {{ $portfolio->portfolio_type_id == $type->id ? 'selected' : '' }}>
+                                                {{ $type->title_az }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('portfolio_type_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
                                 <div class="row mt-3">
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-primary">Yadda saxla</button>

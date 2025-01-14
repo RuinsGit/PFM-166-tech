@@ -27,5 +27,11 @@ class Portfolio extends Model
         'meta_description_az',
         'meta_description_en',
         'meta_description_ru',
+        'portfolio_type_id',
     ];
+
+    public function portfolioType()
+    {
+        return $this->belongsTo(PortfolioType::class);
+    }
 } 

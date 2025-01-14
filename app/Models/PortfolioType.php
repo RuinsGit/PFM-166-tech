@@ -12,4 +12,9 @@ class PortfolioType extends Model
         'title_ru',
         'status',
     ];
+
+    public function portfolios()
+    {
+        return $this->hasMany(Portfolio::class);
+    }
 } 
