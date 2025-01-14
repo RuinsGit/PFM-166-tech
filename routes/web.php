@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\AcceptanceController;
 use App\Http\Controllers\Admin\VacationHeroController;
 use App\Http\Controllers\Admin\VacationController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\ContactController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -206,7 +207,14 @@ Route::prefix('admin')->group(function () {
             Route::get('blog/{id}/edit', [BlogController::class, 'edit'])->name('blog.edit');
             Route::put('blog/{id}', [BlogController::class, 'update'])->name('blog.update');
             Route::delete('blog/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
-            
+
+            // Contact routes
+            Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
+            Route::get('contact/create', [ContactController::class, 'create'])->name('contact.create');
+            Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
+            Route::get('contact/{id}/edit', [ContactController::class, 'edit'])->name('contact.edit');
+            Route::put('contact/{id}', [ContactController::class, 'update'])->name('contact.update');
+            Route::delete('contact/{id}', [ContactController::class, 'destroy'])->name('contact.destroy');
         });     
     });
 });
