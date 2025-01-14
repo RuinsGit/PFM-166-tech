@@ -120,7 +120,7 @@
                     <li>
                             <a href="{{ route('back.pages.service.index') }}">
                                 <i class="ri-service-line"></i>
-                                <span>Services</span>
+                                <span>Xidmətlər</span>
                             </a>
                         </li>
                         <li>
@@ -132,7 +132,7 @@
                         <li>
                             <a href="{{ route('back.pages.portfolio_type.index') }}">
                                 <i class="ri-brackets-line"></i>
-                                <span>Portfolio Type</span>
+                                <span>Portfolio Tipi</span>
                             </a>
                         </li>
                         <li>
@@ -145,16 +145,25 @@
                         <li>
                             <a href="{{ route('back.pages.gallery_type.index') }}">
                                 <i class="ri-brackets-line"></i>
-                                <span>Gallery Type</span>
+                                <span>Galeriya Tipi</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('back.pages.galleries.index') }}">
                                 <i class="ri-image-line"></i>
-                                <span>Gallery</span>
+                                <span>Galeriya</span>
                             </a>
                         </li>
+                     
                         <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-briefcase-line"></i>
+                        <span>Karyera</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                       
+                   
+                    <li>
                             <a href="{{ route('back.pages.career_hero.index') }}">
                                 <i class="ri-briefcase-line"></i>
                                 <span>Career Hero</span>
@@ -166,7 +175,17 @@
                                 <span>İşə Qəbul Prosesi</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('back.pages.vacation_hero.index') }}">
+                                <i class="ri-calendar-line"></i>
+                                <span>Vacation Hero</span>
+                            </a>
+                        </li>
+                        
 
+                         
+                       
+                    </ul>
 
                 </li>
             </ul>

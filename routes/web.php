@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\GalleryTypeController;
 use App\Http\Controllers\Admin\CareerHeroController;
 use App\Http\Controllers\Admin\AcceptanceController;
+use App\Http\Controllers\Admin\VacationHeroController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -179,6 +180,14 @@ Route::prefix('admin')->group(function () {
             Route::get('acceptance/{id}/edit', [AcceptanceController::class, 'edit'])->name('acceptance.edit');
             Route::put('acceptance/{id}', [AcceptanceController::class, 'update'])->name('acceptance.update');
             Route::delete('acceptance/{id}', [AcceptanceController::class, 'destroy'])->name('acceptance.destroy');
+
+            // Vacation Hero routes
+            Route::get('vacation-hero', [VacationHeroController::class, 'index'])->name('vacation_hero.index');
+            Route::get('vacation-hero/create', [VacationHeroController::class, 'create'])->name('vacation_hero.create');
+            Route::post('vacation-hero', [VacationHeroController::class, 'store'])->name('vacation_hero.store');
+            Route::get('vacation-hero/{id}/edit', [VacationHeroController::class, 'edit'])->name('vacation_hero.edit');
+            Route::put('vacation-hero/{id}', [VacationHeroController::class, 'update'])->name('vacation_hero.update');
+            Route::delete('vacation-hero/{id}', [VacationHeroController::class, 'destroy'])->name('vacation_hero.destroy');
         });     
     });
 });
