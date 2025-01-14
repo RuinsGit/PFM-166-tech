@@ -24,9 +24,11 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-end mb-3">
-                                <a href="{{ route('back.pages.vacation_hero.create') }}" class="btn btn-primary">
-                                    <i class="fas fa-plus me-2"></i>Yeni Vacation Hero
-                                </a>
+                                @if($vacationHeroes->count() < 1)
+                                    <a href="{{ route('back.pages.vacation_hero.create') }}" class="btn btn-primary">
+                                        <i class="fas fa-plus me-2"></i>Yeni Vacation Hero
+                                    </a>
+                                @endif
                             </div>
 
                             <div class="table-responsive">
