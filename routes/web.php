@@ -20,6 +20,8 @@ use App\Http\Controllers\Admin\GalleryTypeController;
 use App\Http\Controllers\Admin\CareerHeroController;
 use App\Http\Controllers\Admin\AcceptanceController;
 use App\Http\Controllers\Admin\VacationHeroController;
+use App\Http\Controllers\Admin\VacationController;
+use App\Http\Controllers\Admin\BlogController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -188,6 +190,23 @@ Route::prefix('admin')->group(function () {
             Route::get('vacation-hero/{id}/edit', [VacationHeroController::class, 'edit'])->name('vacation_hero.edit');
             Route::put('vacation-hero/{id}', [VacationHeroController::class, 'update'])->name('vacation_hero.update');
             Route::delete('vacation-hero/{id}', [VacationHeroController::class, 'destroy'])->name('vacation_hero.destroy');
+
+            // Vacation routes
+            Route::get('vacation', [VacationController::class, 'index'])->name('vacation.index');
+            Route::get('vacation/create', [VacationController::class, 'create'])->name('vacation.create');
+            Route::post('vacation', [VacationController::class, 'store'])->name('vacation.store');
+            Route::get('vacation/{id}/edit', [VacationController::class, 'edit'])->name('vacation.edit');
+            Route::put('vacation/{id}', [VacationController::class, 'update'])->name('vacation.update');
+            Route::delete('vacation/{id}', [VacationController::class, 'destroy'])->name('vacation.destroy');
+
+            // Blog routes
+            Route::get('blog', [BlogController::class, 'index'])->name('blog.index');
+            Route::get('blog/create', [BlogController::class, 'create'])->name('blog.create');
+            Route::post('blog', [BlogController::class, 'store'])->name('blog.store');
+            Route::get('blog/{id}/edit', [BlogController::class, 'edit'])->name('blog.edit');
+            Route::put('blog/{id}', [BlogController::class, 'update'])->name('blog.update');
+            Route::delete('blog/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
+            
         });     
     });
 });

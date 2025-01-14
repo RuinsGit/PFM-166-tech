@@ -181,11 +181,23 @@
                                 <span>Vacation Hero</span>
                             </a>
                         </li>
-                        
+                        <li>
+                            <a href="{{ route('back.pages.vacation.index') }}">
+                                <i class="ri-calendar-line"></i>
+                                <span>Vakansiyalar</span>
+                            </a>
+                        </li>
 
                          
                        
                     </ul>
+                    <li>
+                        <a href="{{ route('back.pages.blog.index') }}">
+                            <i class="ri-book-line"></i>
+                            <span>Blog</span>
+                        </a>
+                    </li>
+                  
 
                 </li>
             </ul>

@@ -31,22 +31,22 @@
                                 <!-- Image Upload Section -->
                                 <div class="row mb-4">
                                     <div class="col-md-6">
-                                        <div class="mb-3">
+                                <div class="mb-3">
                                             <label class="form-label">Əsas Şəkil</label>
-                                            <input type="file" name="main_image" class="form-control @error('main_image') is-invalid @enderror">
-                                            @error('main_image')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                            @if($gallery->main_image)
-                                                <div class="mt-2">
-                                                    <img src="{{ asset($gallery->main_image) }}" alt="" class="img-fluid" style="max-height: 100px">
-                                                </div>
-                                            @endif
+                                    <input type="file" name="main_image" class="form-control @error('main_image') is-invalid @enderror">
+                                    @error('main_image')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    @if($gallery->main_image)
+                                        <div class="mt-2">
+                                            <img src="{{ asset($gallery->main_image) }}" alt="" class="img-fluid" style="max-height: 100px">
                                         </div>
+                                    @endif
+                                </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Alt Şəkillər</label>
+                                <div class="mb-3">
+                                    <label class="form-label">Alt Şəkillər</label>
                                             <div id="bottom-images-container">
                                                 <div class="input-group mb-2">
                                                     <input type="file" name="bottom_images[]" class="form-control">

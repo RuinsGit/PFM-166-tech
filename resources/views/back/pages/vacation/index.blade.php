@@ -1,6 +1,6 @@
 @extends('back.layouts.master')
 
-@section('title', 'Bloqlar')
+@section('title', 'Vacations')
 
 @section('content')
     <div class="page-content">
@@ -8,11 +8,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Bloqlar</h4>
+                        <h4 class="mb-sm-0">Vakansiyalar</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Ana səhifə</a></li>
-                                <li class="breadcrumb-item active">Bloqlar</li>
+                                <li class="breadcrumb-item active">Vakansiyalar</li>
                             </ol>
                         </div>
                     </div>
@@ -24,8 +24,8 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-end mb-3">
-                                <a href="{{ route('back.pages.blog.create') }}" class="btn btn-primary">
-                                    <i class="fas fa-plus me-2"></i>Yeni Bloq
+                                <a href="{{ route('back.pages.vacation.create') }}" class="btn btn-primary">
+                                    <i class="fas fa-plus me-2"></i>Yeni Vakansiya
                                 </a>
                             </div>
 
@@ -34,38 +34,36 @@
                                     <thead class="bg-light">
                                         <tr>
                                             <th>ID</th>
-                                            <th>Şəkil</th>
                                             <th>Başlıq (AZ)</th>
-                                            <th>Başlıq (EN)</th>
-                                            <th>Başlıq (RU)</th>
-                                            <th>Alt Şəkillər</th>
+                                           
+                                            <th>Açıqlama (AZ)</th>
+                                                    
+                                            <th>E-mail</th>
+                                             
+                                            <th>Son Müraciət Tarixi</th>
+                                            <th>Görüntüleme Sayısı</th>
                                             <th class="text-center" style="width: 150px;">Əməliyyatlar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($blogs as $blog)
+                                        @forelse($vacations as $vacation)
                                             <tr>
-                                                <td>{{ $blog->id }}</td>
-                                                <td>
-                                                    <img src="{{ asset($blog->main_image) }}" alt="" style="width: 100px; height: auto;">
-                                                </td>
-                                                <td>{{ $blog->title_az }}</td>
-                                                <td>{{ $blog->title_en }}</td>
-                                                <td>{{ $blog->title_ru }}</td>
-                                                <td>
-                                                    @if($blog->bottom_images)
-                                                        <span class="badge bg-info">{{ count(json_decode($blog->bottom_images)) }}</span>
-                                                    @else
-                                                        <span class="badge bg-secondary">0</span>
-                                                    @endif
-                                                </td>
+                                                <td>{{ $vacation->id }}</td>
+                                                <td>{{ $vacation->title_az }}</td>
+                                                
+                                                <td>{{ $vacation->description_az }}</td>
+                                              
+                                                <td>{{ $vacation->email }}</td>
+                                               
+                                                <td>{{ $vacation->application_deadline }}</td>
+                                                <td>{{ $vacation->view_count }}</td>
                                                 <td class="text-center">
-                                                    <a href="{{ route('back.pages.blog.edit', $blog->id) }}" 
+                                                    <a href="{{ route('back.pages.vacation.edit', $vacation->id) }}" 
                                                         class="btn btn-warning btn-sm" title="Düzəliş et">
                                                         <i class="fas fa-pen"></i>
                                                     </a>
                                                     <button type="button" class="btn btn-danger btn-sm" 
-                                                            onclick="deleteData('{{ route('back.pages.blog.destroy', $blog->id) }}')"
+                                                            onclick="deleteData('{{ route('back.pages.vacation.destroy', $vacation->id) }}')"
                                                             title="Sil">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
@@ -73,7 +71,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="7" class="text-center">Heç bir məlumat tapılmadı.</td>
+                                                <td colspan="11" class="text-center">Heç bir məlumat tapılmadı.</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
@@ -103,4 +101,4 @@
         }
     </script>
     @endpush
-@endsection
+@endsection 
