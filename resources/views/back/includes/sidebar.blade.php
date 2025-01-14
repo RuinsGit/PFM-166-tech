@@ -142,6 +142,20 @@
                             </a>
                         </li>
 
+                        <li>
+                            <a href="{{ route('back.pages.gallery_type.index') }}">
+                                <i class="ri-brackets-line"></i>
+                                <span>Gallery Type</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('back.pages.galleries.index') }}">
+                                <i class="ri-image-line"></i>
+                                <span>Gallery</span>
+                            </a>
+                        </li>
+                       
+
 
                 </li>
             </ul>

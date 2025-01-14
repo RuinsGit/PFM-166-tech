@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Portfolio;
-use App\Models\PortfolioType;
+use App\Models\Gallery;
+use App\Models\GalleryType;
 use Illuminate\Http\Request;
 
-class PortfolioController extends Controller
+class GalleryController extends Controller
 {
     private $destinationPath;
 
@@ -18,14 +18,14 @@ class PortfolioController extends Controller
 
     public function index()
     {
-        $portfolios = Portfolio::all();
-        return view('back.pages.portfolio.index', compact('portfolios'));
+        $galleries = Gallery::all();
+        return view('back.pages.gallery.index', compact('galleries'));
     }
 
     public function create()
     {
-        $portfolioTypes = PortfolioType::where('status', 1)->get();
-        return view('back.pages.portfolio.create', compact('portfolioTypes'));
+        $galleryTypes = GalleryType::where('status', 1)->get();
+        return view('back.pages.gallery.create', compact('galleryTypes'));
     }
 
     public function store(Request $request)
@@ -42,16 +42,13 @@ class PortfolioController extends Controller
             'bottom_images_alt_az.*' => 'nullable|string|max:255',
             'bottom_images_alt_en.*' => 'nullable|string|max:255',
             'bottom_images_alt_ru.*' => 'nullable|string|max:255',
-            'description_az' => 'required|string',
-            'description_en' => 'required|string',
-            'description_ru' => 'required|string',
             'meta_title_az' => 'nullable|string|max:255',
             'meta_title_en' => 'nullable|string|max:255',
             'meta_title_ru' => 'nullable|string|max:255',
             'meta_description_az' => 'nullable|string',
             'meta_description_en' => 'nullable|string',
             'meta_description_ru' => 'nullable|string',
-            'portfolio_type_id' => 'required|exists:portfolio_types,id',
+            'gallery_type_id' => 'required|exists:gallery_types,id',
         ]);
 
         // Ana resmi yükle
@@ -104,22 +101,22 @@ class PortfolioController extends Controller
             $data['bottom_images_alt_ru'] = json_encode($bottomImagesAltRu);
         }
 
-        // Portfolio oluştur
-        Portfolio::create($data);
+        // Gallery oluştur
+        Gallery::create($data);
 
-        return redirect()->route('back.pages.portfolio.index')->with('success', 'Portfolio uğurla yaradıldı.');
+        return redirect()->route('back.pages.galleries.index')->with('success', 'Qalereya uğurla yaradıldı.');
     }
 
     public function edit($id)
     {
-        $portfolio = Portfolio::findOrFail($id);
-        $portfolioTypes = PortfolioType::where('status', 1)->get();
-        return view('back.pages.portfolio.edit', compact('portfolio', 'portfolioTypes'));
+        $gallery = Gallery::findOrFail($id);
+        $galleryTypes = GalleryType::where('status', 1)->get();
+        return view('back.pages.gallery.edit', compact('gallery', 'galleryTypes'));
     }
 
     public function update(Request $request, $id)
     {
-        $portfolio = Portfolio::findOrFail($id);
+        $gallery = Gallery::findOrFail($id);
 
         $data = $request->validate([
             'title_az' => 'required|string|max:255',
@@ -133,23 +130,20 @@ class PortfolioController extends Controller
             'bottom_images_alt_az.*' => 'nullable|string|max:255',
             'bottom_images_alt_en.*' => 'nullable|string|max:255',
             'bottom_images_alt_ru.*' => 'nullable|string|max:255',
-            'description_az' => 'required|string',
-            'description_en' => 'required|string',
-            'description_ru' => 'required|string',
             'meta_title_az' => 'nullable|string|max:255',
             'meta_title_en' => 'nullable|string|max:255',
             'meta_title_ru' => 'nullable|string|max:255',
             'meta_description_az' => 'nullable|string',
             'meta_description_en' => 'nullable|string',
             'meta_description_ru' => 'nullable|string',
-            'portfolio_type_id' => 'required|exists:portfolio_types,id',
+            'gallery_type_id' => 'required|exists:gallery_types,id',
         ]);
 
         // Ana resmi güncelle
         if ($request->hasFile('main_image')) {
             // Eski resmi sil
-            if ($portfolio->main_image) {
-                $oldImagePath = public_path($portfolio->main_image);
+            if ($gallery->main_image) {
+                $oldImagePath = public_path($gallery->main_image);
                 if (file_exists($oldImagePath)) {
                     unlink($oldImagePath);
                 }
@@ -173,8 +167,8 @@ class PortfolioController extends Controller
         // Alt resimleri güncelle
         if ($request->hasFile('bottom_images')) {
             // Eski resimleri sil
-            if ($portfolio->bottom_images) {
-                $oldImages = json_decode($portfolio->bottom_images);
+            if ($gallery->bottom_images) {
+                $oldImages = json_decode($gallery->bottom_images);
                 foreach ($oldImages as $oldImage) {
                     $oldImagePath = public_path($oldImage);
                     if (file_exists($oldImagePath)) {
@@ -214,26 +208,26 @@ class PortfolioController extends Controller
             $data['bottom_images_alt_ru'] = json_encode($bottomImagesAltRu);
         }
 
-        // Portfolio güncelle
-        $portfolio->update($data);
+        // Gallery güncelle
+        $gallery->update($data);
 
-        return redirect()->route('back.pages.portfolio.index')->with('success', 'Portfolio uğurla yeniləndi.');
+        return redirect()->route('back.pages.galleries.index')->with('success', 'Qalereya uğurla yeniləndi.');
     }
 
     public function destroy($id)
     {
-        $portfolio = Portfolio::findOrFail($id);
+        $gallery = Gallery::findOrFail($id);
         
         // Resimleri sil
-        if ($portfolio->main_image) {
-            $mainImagePath = public_path($portfolio->main_image);
+        if ($gallery->main_image) {
+            $mainImagePath = public_path($gallery->main_image);
             if (file_exists($mainImagePath)) {
                 unlink($mainImagePath);
             }
         }
 
-        if ($portfolio->bottom_images) {
-            $bottomImages = json_decode($portfolio->bottom_images);
+        if ($gallery->bottom_images) {
+            $bottomImages = json_decode($gallery->bottom_images);
             foreach ($bottomImages as $image) {
                 $imagePath = public_path($image);
                 if (file_exists($imagePath)) {
@@ -242,8 +236,8 @@ class PortfolioController extends Controller
             }
         }
 
-        $portfolio->delete();
+        $gallery->delete();
 
-        return redirect()->route('back.pages.portfolio.index')->with('success', 'Portfolio uğurla silindi.');
+        return redirect()->route('back.pages.galleries.index')->with('success', 'Qalereya uğurla silindi.');
     }
-} 
+}

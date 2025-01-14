@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\KeyfiyetController;
 use App\Http\Controllers\Admin\PortfolioTypeController;
 use App\Http\Controllers\Admin\PortfolioController;
+use App\Http\Controllers\Admin\GalleryController;
+use App\Http\Controllers\Admin\GalleryTypeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -142,9 +144,27 @@ Route::prefix('admin')->group(function () {
             Route::get('portfolio/{id}/edit', [PortfolioController::class, 'edit'])->name('portfolio.edit');
             Route::put('portfolio/{id}', [PortfolioController::class, 'update'])->name('portfolio.update');
             Route::delete('portfolio/{id}', [PortfolioController::class, 'destroy'])->name('portfolio.destroy');
+
+            // Gallery routes
+           
+            Route::get('galleries', [GalleryController::class, 'index'])->name('galleries.index');
+            Route::get('galleries/create', [GalleryController::class, 'create'])->name('galleries.create');
+            Route::post('galleries', [GalleryController::class, 'store'])->name('galleries.store');
+            Route::get('galleries/{id}/edit', [GalleryController::class, 'edit'])->name('galleries.edit');
+            Route::put('galleries/{id}', [GalleryController::class, 'update'])->name('galleries.update');
+            Route::delete('galleries/{id}', [GalleryController::class, 'destroy'])->name('galleries.destroy');
+
+            // Gallery Type routes
+            Route::get('gallery-type', [GalleryTypeController::class, 'index'])->name('gallery_type.index');
+            Route::get('gallery-type/create', [GalleryTypeController::class, 'create'])->name('gallery_type.create');
+            Route::post('gallery-type', [GalleryTypeController::class, 'store'])->name('gallery_type.store');
+            Route::get('gallery-type/{id}/edit', [GalleryTypeController::class, 'edit'])->name('gallery_type.edit');
+            Route::put('gallery-type/{id}', [GalleryTypeController::class, 'update'])->name('gallery_type.update');
+            Route::delete('gallery-type/{id}', [GalleryTypeController::class, 'destroy'])->name('gallery_type.destroy');
         });     
     });
 });
+
 
 
 
