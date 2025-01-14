@@ -156,11 +156,16 @@
                         </li>
                         <li>
                             <a href="{{ route('back.pages.career_hero.index') }}">
-                                <i class="ri-image-line"></i>
+                                <i class="ri-briefcase-line"></i>
                                 <span>Career Hero</span>
                             </a>
                         </li>
-                       
+                        <li>
+                            <a href="{{ route('back.pages.acceptance.index') }}">
+                                <i class="ri-check-line"></i>
+                                <span>İşə Qəbul Prosesi</span>
+                            </a>
+                        </li>
 
 
                 </li>

@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\GalleryTypeController;
 use App\Http\Controllers\Admin\CareerHeroController;
+use App\Http\Controllers\Admin\AcceptanceController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -170,6 +171,14 @@ Route::prefix('admin')->group(function () {
             Route::get('career-hero/{id}/edit', [CareerHeroController::class, 'edit'])->name('career_hero.edit');
             Route::put('career-hero/{id}', [CareerHeroController::class, 'update'])->name('career_hero.update');
             Route::delete('career-hero/{id}', [CareerHeroController::class, 'destroy'])->name('career_hero.destroy');
+
+            // Acceptance routes
+            Route::get('acceptance', [AcceptanceController::class, 'index'])->name('acceptance.index');
+            Route::get('acceptance/create', [AcceptanceController::class, 'create'])->name('acceptance.create');
+            Route::post('acceptance', [AcceptanceController::class, 'store'])->name('acceptance.store');
+            Route::get('acceptance/{id}/edit', [AcceptanceController::class, 'edit'])->name('acceptance.edit');
+            Route::put('acceptance/{id}', [AcceptanceController::class, 'update'])->name('acceptance.update');
+            Route::delete('acceptance/{id}', [AcceptanceController::class, 'destroy'])->name('acceptance.destroy');
         });     
     });
 });
