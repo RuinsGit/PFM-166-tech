@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\PortfolioTypeController;
 use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\GalleryTypeController;
+use App\Http\Controllers\Admin\CareerHeroController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -161,6 +162,14 @@ Route::prefix('admin')->group(function () {
             Route::get('gallery-type/{id}/edit', [GalleryTypeController::class, 'edit'])->name('gallery_type.edit');
             Route::put('gallery-type/{id}', [GalleryTypeController::class, 'update'])->name('gallery_type.update');
             Route::delete('gallery-type/{id}', [GalleryTypeController::class, 'destroy'])->name('gallery_type.destroy');
+
+            // Career Hero routes
+            Route::get('career-hero', [CareerHeroController::class, 'index'])->name('career_hero.index');
+            Route::get('career-hero/create', [CareerHeroController::class, 'create'])->name('career_hero.create');
+            Route::post('career-hero', [CareerHeroController::class, 'store'])->name('career_hero.store');
+            Route::get('career-hero/{id}/edit', [CareerHeroController::class, 'edit'])->name('career_hero.edit');
+            Route::put('career-hero/{id}', [CareerHeroController::class, 'update'])->name('career_hero.update');
+            Route::delete('career-hero/{id}', [CareerHeroController::class, 'destroy'])->name('career_hero.destroy');
         });     
     });
 });

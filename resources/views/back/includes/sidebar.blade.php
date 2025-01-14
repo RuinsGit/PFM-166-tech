@@ -154,6 +154,12 @@
                                 <span>Gallery</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('back.pages.career_hero.index') }}">
+                                <i class="ri-image-line"></i>
+                                <span>Career Hero</span>
+                            </a>
+                        </li>
                        
 
 
