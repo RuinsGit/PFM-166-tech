@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\VacationController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\ContactRequestController;
+use App\Http\Controllers\Admin\SocialMediaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -225,6 +226,17 @@ Route::prefix('admin')->group(function () {
             Route::put('contact_requests/{id}', [ContactRequestController::class, 'update'])->name('contact_requests.update');
             Route::delete('contact_requests/{id}', [ContactRequestController::class, 'destroy'])->name('contact_requests.destroy');
             Route::get('contact_requests/{id}', [ContactRequestController::class, 'show'])->name('contact_requests.show');
+
+            // Social Media routes
+            Route::get('social', [SocialMediaController::class, 'index'])->name('social.index');
+            Route::get('social/create', [SocialMediaController::class, 'create'])->name('social.create');
+            Route::post('social', [SocialMediaController::class, 'store'])->name('social.store');
+            Route::get('social/{id}/edit', [SocialMediaController::class, 'edit'])->name('social.edit');
+            Route::put('social/{id}', [SocialMediaController::class, 'update'])->name('social.update');
+            Route::delete('social/{id}', [SocialMediaController::class, 'destroy'])->name('social.destroy');
+            Route::post('social/order', [SocialMediaController::class, 'order'])->name('social.order');
+            Route::post('social/toggle-status/{id}', [SocialMediaController::class, 'toggleStatus'])->name('social.toggle-status');
+            
         });     
     });
 });

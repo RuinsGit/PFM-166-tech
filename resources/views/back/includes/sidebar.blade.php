@@ -222,6 +222,12 @@
                          
                        
                     </ul>
+                    <li>
+                        <a href="{{ route('back.pages.social.index') }}">
+                            <i class="ri-share-line"></i>
+                            <span>Sosial Media</span>
+                        </a>
+                    </li>
 
 
                     
