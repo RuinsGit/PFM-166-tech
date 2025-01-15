@@ -183,7 +183,7 @@
                         </li>
                         <li>
                             <a href="{{ route('back.pages.vacation.index') }}">
-                                <i class="ri-calendar-line"></i>
+                                <i class="ri-briefcase-line"></i>
                                 <span>Vakansiyalar</span>
                             </a>
                         </li>
