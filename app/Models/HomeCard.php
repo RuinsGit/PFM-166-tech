@@ -18,4 +18,19 @@ class HomeCard extends Model
         'description_en',
         'description_ru'
     ];
+
+    public function getTitleAttribute()
+    {
+        return $this->{'title_' . app()->getLocale()};
+    }
+
+    public function getDescriptionAttribute()
+    {
+        return $this->{'description_' . app()->getLocale()};
+    }
+
+    public function getImageAltAttribute()
+    {
+        return $this->{'image_alt_' . app()->getLocale()};
+    }
 }

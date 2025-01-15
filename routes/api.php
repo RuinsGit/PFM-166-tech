@@ -10,7 +10,8 @@ use App\Http\Controllers\Api\PortfolioController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\SocialshareController;
 use App\Http\Controllers\Api\BlogTypeController;
-
+use App\Http\Controllers\Api\HomeCardController;
+use App\Http\Controllers\Api\CommentController;
 // About Routes
 Route::get('/about', [AboutController::class, 'index']);
 Route::get('/about/{id}', [AboutController::class, 'show']);
@@ -46,6 +47,14 @@ Route::get('/social-shares/{id}', [SocialshareController::class, 'show']);
 // Blog Type Routes
 Route::get('/blog-types', [BlogTypeController::class, 'index']);
 Route::get('/blog-types/{id}', [BlogTypeController::class, 'show']);
+
+// Home Card Routes
+Route::get('/home-cards', [HomeCardController::class, 'index']);
+Route::get('/home-cards/{id}', [HomeCardController::class, 'show']);
+
+// Comment Routes
+Route::get('/comments', [CommentController::class, 'index']);
+Route::get('/comments/{id}', [CommentController::class, 'show']);
 
 
 
