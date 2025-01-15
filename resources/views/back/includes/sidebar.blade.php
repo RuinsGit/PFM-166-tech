@@ -228,6 +228,12 @@
                             <span>Sosial Media</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('back.pages.socialshare.index') }}">
+                            <i class="ri-share-line"></i>
+                            <span>Sosial Share</span>
+                        </a>
+                    </li>
 
 
                     

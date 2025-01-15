@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\ContactRequestController;
 use App\Http\Controllers\Admin\SocialMediaController;
+use App\Http\Controllers\Admin\SocialShareController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -236,7 +237,15 @@ Route::prefix('admin')->group(function () {
             Route::delete('social/{id}', [SocialMediaController::class, 'destroy'])->name('social.destroy');
             Route::post('social/order', [SocialMediaController::class, 'order'])->name('social.order');
             Route::post('social/toggle-status/{id}', [SocialMediaController::class, 'toggleStatus'])->name('social.toggle-status');
-            
+
+            // Social Share routes
+            Route::get('socialshare', [SocialShareController::class, 'index'])->name('socialshare.index');
+            Route::get('socialshare/create', [SocialShareController::class, 'create'])->name('socialshare.create');
+            Route::post('socialshare', [SocialShareController::class, 'store'])->name('socialshare.store');
+            Route::get('socialshare/{id}/edit', [SocialShareController::class, 'edit'])->name('socialshare.edit');
+            Route::put('socialshare/{id}', [SocialShareController::class, 'update'])->name('socialshare.update');
+            Route::delete('socialshare/{id}', [SocialShareController::class, 'destroy'])->name('socialshare.destroy');
+
         });     
     });
 });
