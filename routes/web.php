@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\ContactRequestController;
 use App\Http\Controllers\Admin\SocialMediaController;
 use App\Http\Controllers\Admin\SocialShareController;
+use App\Http\Controllers\Admin\BlogTypeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -245,6 +246,9 @@ Route::prefix('admin')->group(function () {
             Route::get('socialshare/{id}/edit', [SocialShareController::class, 'edit'])->name('socialshare.edit');
             Route::put('socialshare/{id}', [SocialShareController::class, 'update'])->name('socialshare.update');
             Route::delete('socialshare/{id}', [SocialShareController::class, 'destroy'])->name('socialshare.destroy');
+
+            // Blog Type routes
+            Route::resource('blog_type', BlogTypeController::class);
 
         });     
     });

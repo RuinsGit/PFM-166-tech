@@ -26,6 +26,21 @@
                         <div class="card-body">
                             <form action="{{ route('back.pages.blog.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
+                                
+                                <div class="form-group">
+                                    <label for="blog_type_id">Bloq Tipi</label>
+                                    <select name="blog_type_id" class="form-control @error('blog_type_id') is-invalid @enderror" required>
+                                        <option value="">Seçin</option>
+                                        @foreach($blog_types as $type)
+                                            <option value="{{ $type->id }}" {{ old('blog_type_id') == $type->id ? 'selected' : '' }}>
+                                                {{ $type->title_az }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('blog_type_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
                                 <!-- Şəkil Yükləmə Bölməsi -->
                                 <div class="row mb-4">
@@ -242,6 +257,25 @@
                                             <textarea name="meta_description_ru" class="form-control" rows="3"></textarea>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="blog_type_id">Bloq Tipi</label>
+                                    <select name="blog_type_id" id="blog_type_id" class="form-control @error('blog_type_id') is-invalid @enderror" required>
+                                        <option value="">Bloq tipi seçin</option>
+                                        @foreach($blog_types as $type)
+                                            <option value="{{ $type->id }}" {{ old('blog_type_id') == $type->id ? 'selected' : '' }}>
+                                                {{ $type->title_az }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('blog_type_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="title_az">Başlıq (AZ)</label>
                                 </div>
 
                                 <div class="row mt-3">

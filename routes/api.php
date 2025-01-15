@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\GalleryController;
 use App\Http\Controllers\Api\PortfolioController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\SocialshareController;
+use App\Http\Controllers\Api\BlogTypeController;
 
 // About Routes
 Route::get('/about', [AboutController::class, 'index']);
@@ -41,4 +42,10 @@ Route::get('/services/{id}', [ServiceController::class, 'show']);
 // Social Share Routes
 Route::get('/social-shares', [SocialshareController::class, 'index']);
 Route::get('/social-shares/{id}', [SocialshareController::class, 'show']);
+
+// Blog Type Routes
+Route::get('/blog-types', [BlogTypeController::class, 'index']);
+Route::get('/blog-types/{id}', [BlogTypeController::class, 'show']);
+
+
 

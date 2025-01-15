@@ -13,10 +13,6 @@ class Blog extends Model
         'title_az',
         'title_en',
         'title_ru',
-        'main_image',
-        'main_image_alt_az',
-        'main_image_alt_en',
-        'main_image_alt_ru',
         'text_az',
         'text_en',
         'text_ru',
@@ -26,6 +22,10 @@ class Blog extends Model
         'description_2_az',
         'description_2_en',
         'description_2_ru',
+        'main_image',
+        'main_image_alt_az',
+        'main_image_alt_en',
+        'main_image_alt_ru',
         'bottom_images',
         'bottom_images_alt_az',
         'bottom_images_alt_en',
@@ -35,6 +35,13 @@ class Blog extends Model
         'meta_title_ru',
         'meta_description_az',
         'meta_description_en',
-        'meta_description_ru'
+        'meta_description_ru',
+        'blog_type_id',
+        'color'
     ];
+
+    public function blogType()
+    {
+        return $this->belongsTo(BlogType::class);
+    }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PortfolioResource extends JsonResource
+class GalleryResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
@@ -29,11 +29,9 @@ class PortfolioResource extends JsonResource
             'main_image' => $this->main_image ? asset($this->main_image) : null,
             'main_image_alt' => $this->{'main_image_alt_' . app()->getLocale()},
             'images' => $images,
-            'color' => $this->color,
-            'description' => $this->{'description_' . app()->getLocale()},
             'meta_title' => $this->{'meta_title_' . app()->getLocale()},
             'meta_description' => $this->{'meta_description_' . app()->getLocale()},
-            'portfolio_type' => new PortfolioTypeResource($this->whenLoaded('portfolioType'))
+            'gallery_type' => new GalleryTypeResource($this->whenLoaded('galleryType'))
         ];
     }
 } 

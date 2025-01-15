@@ -39,6 +39,7 @@
                                             <th>Başlıq (EN)</th>
                                             <th>Başlıq (RU)</th>
                                             <th>Alt Şəkillər</th>
+                                            <th>Tip</th>
                                             <th class="text-center" style="width: 150px;">Əməliyyatlar</th>
                                         </tr>
                                     </thead>
@@ -59,6 +60,7 @@
                                                         <span class="badge bg-secondary">0</span>
                                                     @endif
                                                 </td>
+                                                <td>{{ $blog->blogType ? $blog->blogType->title_az : 'Tip seçilməyib' }}</td>
                                                 <td class="text-center">
                                                     <a href="{{ route('back.pages.blog.edit', $blog->id) }}" 
                                                         class="btn btn-warning btn-sm" title="Düzəliş et">

@@ -191,12 +191,22 @@
                          
                        
                     </ul>
+
+                    <li>
+                        <a href="{{ route('back.pages.blog_type.index') }}">
+                            <i class="ri-book-line"></i>
+                            <span>Blog Tipi</span>
+                        </a>
+                    </li>
+
                     <li>
                         <a href="{{ route('back.pages.blog.index') }}">
                             <i class="ri-book-line"></i>
                             <span>Blog</span>
                         </a>
                     </li>
+
+
 
                     <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">

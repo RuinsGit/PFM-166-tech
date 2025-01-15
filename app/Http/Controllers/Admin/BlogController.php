@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\BlogType;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -17,25 +18,27 @@ class BlogController extends Controller
 
     public function index()
     {
-        $blogs = Blog::all();
+        $blogs = Blog::with('blogType')->orderBy('id', 'desc')->get();
         return view('back.pages.blog.index', compact('blogs'));
     }
 
     public function create()
     {
-        return view('back.pages.blog.create');
+        $blog_types = BlogType::where('status', 1)->get();
+        return view('back.pages.blog.create', compact('blog_types'));
     }
 
     public function store(Request $request)
     {
         $data = $request->validate([
+            'blog_type_id' => 'required|exists:blog_types,id',
             'title_az' => 'required|string|max:255',
             'title_en' => 'required|string|max:255',
             'title_ru' => 'required|string|max:255',
             'main_image' => 'required|image|mimes:jpeg,png,jpg',
-            'main_image_alt_az' => 'required|string|max:255',
-            'main_image_alt_en' => 'required|string|max:255',
-            'main_image_alt_ru' => 'required|string|max:255',
+            'main_image_alt_az' => 'nullable|string|max:255',
+            'main_image_alt_en' => 'nullable|string|max:255',
+            'main_image_alt_ru' => 'nullable|string|max:255',
             'bottom_images.*' => 'nullable|image|mimes:jpeg,png,jpg',
             'bottom_images_alt_az.*' => 'nullable|string|max:255',
             'bottom_images_alt_en.*' => 'nullable|string|max:255',
@@ -54,7 +57,7 @@ class BlogController extends Controller
             'meta_title_ru' => 'nullable|string|max:255',
             'meta_description_az' => 'nullable|string',
             'meta_description_en' => 'nullable|string',
-            'meta_description_ru' => 'nullable|string',
+            'meta_description_ru' => 'nullable|string'
         ]);
 
         // Ana resmi yükle
@@ -115,7 +118,8 @@ class BlogController extends Controller
     public function edit($id)
     {
         $blog = Blog::findOrFail($id);
-        return view('back.pages.blog.edit', compact('blog'));
+        $blog_types = BlogType::where('status', 1)->get();
+        return view('back.pages.blog.edit', compact('blog', 'blog_types'));
     }
 
     public function update(Request $request, $id)
@@ -149,6 +153,7 @@ class BlogController extends Controller
             'meta_description_az' => 'nullable|string',
             'meta_description_en' => 'nullable|string',
             'meta_description_ru' => 'nullable|string',
+            'blog_type_id' => 'required|exists:blog_types,id'
         ]);
 
         // Ana resmi güncelle
