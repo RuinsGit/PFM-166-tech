@@ -18,6 +18,8 @@ use App\Http\Controllers\Api\AboutHeroApiController;
 use App\Http\Controllers\Api\AboutSectionApiController;
 use App\Http\Controllers\Api\LeaderApiController;
 use App\Http\Controllers\Api\KeyfiyetApiController;
+use App\Http\Controllers\Api\SocialMediaApiController;
+use App\Http\Controllers\Api\SocialshareApiController;
 
 // About Routes
 Route::get('/about', [AboutController::class, 'index']);
@@ -98,6 +100,25 @@ Route::get('/keyfiyets', [KeyfiyetApiController::class, 'index']);
 Route::get('/keyfiyets/{id}', [KeyfiyetApiController::class, 'show']);
 Route::get('/keyfiyets/key/{key}', [KeyfiyetApiController::class, 'getByKey']);
 Route::get('/keyfiyets/filial/{filial}', [KeyfiyetApiController::class, 'getByFilial']);
+
+// Social Media Routes
+Route::prefix('social-media')->group(function () {
+    Route::get('/', [SocialMediaApiController::class, 'index']);
+    Route::get('/{id}', [SocialMediaApiController::class, 'show']);
+    Route::post('/', [SocialMediaApiController::class, 'store']);
+    Route::put('/{id}', [SocialMediaApiController::class, 'update']);
+    Route::delete('/{id}', [SocialMediaApiController::class, 'destroy']);
+    Route::post('/{id}/toggle-status', [SocialMediaApiController::class, 'toggleStatus']);
+});
+
+// Socialshare Routes
+Route::prefix('socialshares')->group(function () {
+    Route::get('/', [SocialshareApiController::class, 'index']);
+    Route::get('/{id}', [SocialshareApiController::class, 'show']);
+    Route::post('/', [SocialshareApiController::class, 'store']);
+    Route::put('/{id}', [SocialshareApiController::class, 'update']);
+    Route::delete('/{id}', [SocialshareApiController::class, 'destroy']);
+});
 
 
 
