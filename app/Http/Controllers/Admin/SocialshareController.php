@@ -13,6 +13,11 @@ class SocialshareController extends Controller
     public function __construct()
     {
         $this->destinationPath = public_path('uploads');
+        
+        // Uploads klasörü yoksa oluştur
+        if (!file_exists($this->destinationPath)) {
+            mkdir($this->destinationPath, 0775, true);
+        }
     }
 
     public function index()

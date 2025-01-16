@@ -25,8 +25,10 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\ContactRequestController;
 use App\Http\Controllers\Admin\SocialMediaController;
-use App\Http\Controllers\Admin\SocialShareController;
+use App\Http\Controllers\Admin\SocialshareController;
 use App\Http\Controllers\Admin\BlogTypeController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -240,12 +242,12 @@ Route::prefix('admin')->group(function () {
             Route::post('social/toggle-status/{id}', [SocialMediaController::class, 'toggleStatus'])->name('social.toggle-status');
 
             // Social Share routes
-            Route::get('socialshare', [SocialShareController::class, 'index'])->name('socialshare.index');
-            Route::get('socialshare/create', [SocialShareController::class, 'create'])->name('socialshare.create');
-            Route::post('socialshare', [SocialShareController::class, 'store'])->name('socialshare.store');
-            Route::get('socialshare/{id}/edit', [SocialShareController::class, 'edit'])->name('socialshare.edit');
-            Route::put('socialshare/{id}', [SocialShareController::class, 'update'])->name('socialshare.update');
-            Route::delete('socialshare/{id}', [SocialShareController::class, 'destroy'])->name('socialshare.destroy');
+            Route::get('socialshare', [SocialshareController::class, 'index'])->name('socialshare.index');
+            Route::get('socialshare/create', [SocialshareController::class, 'create'])->name('socialshare.create');
+            Route::post('socialshare', [SocialshareController::class, 'store'])->name('socialshare.store');
+            Route::get('socialshare/{id}/edit', [SocialshareController::class, 'edit'])->name('socialshare.edit');
+            Route::put('socialshare/{id}', [SocialshareController::class, 'update'])->name('socialshare.update');
+            Route::delete('socialshare/{id}', [SocialshareController::class, 'destroy'])->name('socialshare.destroy');
 
             // Blog Type routes
             Route::resource('blog_type', BlogTypeController::class);
