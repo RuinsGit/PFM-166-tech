@@ -26,4 +26,20 @@ class Logo extends Model
         'logo_title2_en',
         'logo_title2_ru',
     ];
+    public function getLogoAlt1Attribute()
+    {
+        return $this->{'logo_alt1_' . app()->getLocale()};
+    }
+    public function getLogoAlt2Attribute()
+    {
+        return $this->{'logo_alt2_' . app()->getLocale()};
+    }
+    public function getLogoTitle1Attribute()
+    {
+        return $this->{'logo_title1_' . app()->getLocale()};
+    }
+    public function getLogoTitle2Attribute()
+    {
+        return $this->{'logo_title2_' . app()->getLocale()};
+    }
 }

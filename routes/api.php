@@ -12,6 +12,9 @@ use App\Http\Controllers\Api\SocialshareController;
 use App\Http\Controllers\Api\BlogTypeController;
 use App\Http\Controllers\Api\HomeCardController;
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\TranslationManageController;
+use App\Http\Controllers\Api\LogoApiController;
+
 // About Routes
 Route::get('/about', [AboutController::class, 'index']);
 Route::get('/about/{id}', [AboutController::class, 'show']);
@@ -55,6 +58,18 @@ Route::get('/home-cards/{id}', [HomeCardController::class, 'show']);
 // Comment Routes
 Route::get('/comments', [CommentController::class, 'index']);
 Route::get('/comments/{id}', [CommentController::class, 'show']);
+
+// Translation Routes
+Route::get('translations', [TranslationManageController::class, 'index']);
+Route::get('translations/{id}', [TranslationManageController::class, 'show']);
+Route::get('translations/key/{key}', [TranslationManageController::class, 'getByKey']);
+Route::get('translations/group/{group}', [TranslationManageController::class, 'getByGroup']);
+
+// Logo Routes
+Route::get('/logos', [LogoApiController::class, 'index']);
+Route::get('/logos/{id}', [LogoApiController::class, 'show']);
+Route::get('/logos/key/{key}', [LogoApiController::class, 'getByKey']);
+Route::get('/logos/group/{group}', [LogoApiController::class, 'getByGroup']);
 
 
 
