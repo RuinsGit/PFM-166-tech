@@ -18,4 +18,19 @@ class AboutSection extends Model
         'image_alt_en',
         'image_alt_ru'
     ];
+
+    public function getTitleAttribute()
+    {
+        return $this->{'title_' . app()->getLocale()};
+    }
+
+    public function getTextAttribute()
+    {
+        return $this->{'text_' . app()->getLocale()};
+    }
+
+    public function getImageAltAttribute()
+    {
+        return $this->{'image_alt_' . app()->getLocale()};
+    }
 }

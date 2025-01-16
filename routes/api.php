@@ -14,6 +14,8 @@ use App\Http\Controllers\Api\HomeCardController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\TranslationManageController;
 use App\Http\Controllers\Api\LogoApiController;
+use App\Http\Controllers\Api\AboutHeroApiController;
+use App\Http\Controllers\Api\AboutSectionApiController;
 
 // About Routes
 Route::get('/about', [AboutController::class, 'index']);
@@ -70,6 +72,18 @@ Route::get('/logos', [LogoApiController::class, 'index']);
 Route::get('/logos/{id}', [LogoApiController::class, 'show']);
 Route::get('/logos/key/{key}', [LogoApiController::class, 'getByKey']);
 Route::get('/logos/group/{group}', [LogoApiController::class, 'getByGroup']);
+
+// About Hero Routes
+Route::get('/about-hero', [AboutHeroApiController::class, 'index']);
+Route::get('/about-hero/{id}', [AboutHeroApiController::class, 'show']);
+Route::get('/about-hero/key/{key}', [AboutHeroApiController::class, 'getByKey']);
+Route::get('/about-hero/group/{group}', [AboutHeroApiController::class, 'getByGroup']);
+
+// About Section Routes
+Route::get('/about-sections', [AboutSectionApiController::class, 'index']);
+Route::get('/about-sections/{id}', [AboutSectionApiController::class, 'show']);
+Route::get('/about-sections/key/{key}', [AboutSectionApiController::class, 'getByKey']);
+Route::get('/about-sections/group/{group}', [AboutSectionApiController::class, 'getByGroup']);
 
 
 
