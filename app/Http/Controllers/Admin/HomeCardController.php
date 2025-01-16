@@ -12,25 +12,16 @@ class HomeCardController extends Controller
     public function index()
     {
         $homeCards = HomeCard::all();
-        $cardCount = HomeCard::count();
-        return view('back.admin.home-cards.index', compact('homeCards', 'cardCount'));
+        return view('back.admin.home-cards.index', compact('homeCards'));
     }
 
     public function create()
     {
-        $cardCount = HomeCard::count();
-        return view('back.admin.home-cards.create', compact('cardCount'));
+        return view('back.admin.home-cards.create');
     }
 
     public function store(Request $request)
     {
-        $cardCount = HomeCard::count();
-        
-        if ($cardCount >= 1) {
-            return redirect()->route('back.pages.home-cards.index')
-                ->with('error', 'Hal hazırda home card mövcuddur. yeni home card yaratmaq üçün əvvəlcə əvvəlcəki home cardı silin ya da redaktə edin.');
-        }
-
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'image_alt_az' => 'required|string',
