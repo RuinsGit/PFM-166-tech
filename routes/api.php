@@ -24,6 +24,8 @@ use App\Http\Controllers\Api\CareerHeroApiController;
 use App\Http\Controllers\Api\AcceptanceApiController;
 use App\Http\Controllers\Api\VacationApiController;
 use App\Http\Controllers\Api\VacationHeroApiController;
+use App\Http\Controllers\Api\ContactApiController;
+use App\Http\Controllers\Api\ContactRequestApiController;
 
 // About Routes
 Route::get('/about', [AboutController::class, 'index']);
@@ -38,8 +40,13 @@ Route::get('/careers', [CareerController::class, 'index']);
 Route::get('/careers/{id}', [CareerController::class, 'show']);
 
 // Contact Routes
-Route::get('/contacts', [ContactController::class, 'index']);
-Route::post('/contact-requests', [ContactController::class, 'store']);
+Route::prefix('contacts')->group(function () {
+    Route::get('/', [ContactApiController::class, 'index']);
+    Route::get('/{id}', [ContactApiController::class, 'show']);
+    Route::post('/', [ContactApiController::class, 'store']);
+    Route::put('/{id}', [ContactApiController::class, 'update']);
+    Route::delete('/{id}', [ContactApiController::class, 'destroy']);
+});
 
 // Gallery Routes
 Route::get('/galleries', [GalleryController::class, 'index']);
@@ -155,6 +162,14 @@ Route::prefix('vacation-heroes')->group(function () {
     Route::post('/', [VacationHeroApiController::class, 'store']);
     Route::put('/{id}', [VacationHeroApiController::class, 'update']);
     Route::delete('/{id}', [VacationHeroApiController::class, 'destroy']);
+});
+
+// Contact Request Routes
+Route::prefix('contact-requests')->group(function () {
+    Route::get('/', [ContactRequestApiController::class, 'index']);
+    Route::get('/{id}', [ContactRequestApiController::class, 'show']);
+    Route::post('/', [ContactRequestApiController::class, 'store']);
+    Route::delete('/{id}', [ContactRequestApiController::class, 'destroy']);
 });
 
 

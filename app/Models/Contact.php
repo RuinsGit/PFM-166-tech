@@ -17,4 +17,9 @@ class Contact extends Model
         'address_image',
         'filial_description'
     ];
+
+    public function getAddressAttribute()
+    {
+        return $this->{'address_' . app()->getLocale()};
+    }
 } 
