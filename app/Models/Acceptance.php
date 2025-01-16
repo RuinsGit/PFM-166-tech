@@ -14,4 +14,14 @@ class Acceptance extends Model
         'text_en', 
         'text_ru', 
     ];
+
+    public function getTitleAttribute()
+    {
+        return $this->{'title_' . app()->getLocale()};
+    }
+
+    public function getTextAttribute()
+    {
+        return $this->{'text_' . app()->getLocale()};
+    }
 }

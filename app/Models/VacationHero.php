@@ -12,4 +12,9 @@ class VacationHero extends Model
         'image_alt_en', 
         'image_alt_ru', 
     ];
+
+    public function getImageAltAttribute()
+    {
+        return $this->{'image_alt_' . app()->getLocale()};
+    }
 } 

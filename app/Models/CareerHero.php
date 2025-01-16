@@ -16,4 +16,12 @@ class CareerHero extends Model
         'description_ru', 
         'video', 
     ];
+    public function getImageAltAttribute()
+    {
+        return $this->{'image_alt_' . app()->getLocale()};
+    }
+    public function getDescriptionAttribute()
+    {
+        return $this->{'description_' . app()->getLocale()};
+    }
 } 

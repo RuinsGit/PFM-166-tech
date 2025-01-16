@@ -20,6 +20,10 @@ use App\Http\Controllers\Api\LeaderApiController;
 use App\Http\Controllers\Api\KeyfiyetApiController;
 use App\Http\Controllers\Api\SocialMediaApiController;
 use App\Http\Controllers\Api\SocialshareApiController;
+use App\Http\Controllers\Api\CareerHeroApiController;
+use App\Http\Controllers\Api\AcceptanceApiController;
+use App\Http\Controllers\Api\VacationApiController;
+use App\Http\Controllers\Api\VacationHeroApiController;
 
 // About Routes
 Route::get('/about', [AboutController::class, 'index']);
@@ -118,6 +122,39 @@ Route::prefix('socialshares')->group(function () {
     Route::post('/', [SocialshareApiController::class, 'store']);
     Route::put('/{id}', [SocialshareApiController::class, 'update']);
     Route::delete('/{id}', [SocialshareApiController::class, 'destroy']);
+});
+
+// Career Hero Routes
+Route::prefix('career-heroes')->group(function () {
+    Route::get('/', [CareerHeroApiController::class, 'index']);
+    Route::get('/{id}', [CareerHeroApiController::class, 'show']);
+    Route::get('/key/{key}', [CareerHeroApiController::class, 'getByKey']);
+    Route::get('/group/{group}', [CareerHeroApiController::class, 'getByGroup']);
+});
+
+// Acceptance Routes
+Route::prefix('acceptances')->group(function () {
+    Route::get('/', [AcceptanceApiController::class, 'index']);
+    Route::get('/{id}', [AcceptanceApiController::class, 'show']);
+    Route::get('/key/{key}', [AcceptanceApiController::class, 'getByKey']);
+    Route::get('/group/{group}', [AcceptanceApiController::class, 'getByGroup']);
+});
+
+// Vacation Routes
+Route::prefix('vacations')->group(function () {
+    Route::get('/', [VacationApiController::class, 'index']);
+    Route::get('/{id}', [VacationApiController::class, 'show']);
+    Route::get('/key/{key}', [VacationApiController::class, 'getByKey']);
+    Route::get('/group/{group}', [VacationApiController::class, 'getByGroup']);
+});
+
+// Vacation Hero Routes
+Route::prefix('vacation-heroes')->group(function () {
+    Route::get('/', [VacationHeroApiController::class, 'index']);
+    Route::get('/{id}', [VacationHeroApiController::class, 'show']);
+    Route::post('/', [VacationHeroApiController::class, 'store']);
+    Route::put('/{id}', [VacationHeroApiController::class, 'update']);
+    Route::delete('/{id}', [VacationHeroApiController::class, 'destroy']);
 });
 
 
