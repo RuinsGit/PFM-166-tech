@@ -38,7 +38,7 @@ class VacationHeroController extends Controller
 
         VacationHero::create($data);
 
-        return redirect()->route('back.pages.vacation_hero.index')->with('success', 'Vacation Hero başarıyla oluşturuldu.');
+        return redirect()->route('back.pages.vacation_hero.index')->with('success', 'Vacation Hero ugurla oluşturuldu.');
     }
 
     public function edit($id)
@@ -73,7 +73,7 @@ class VacationHeroController extends Controller
 
         $vacationHero->update($data);
 
-        return redirect()->route('back.pages.vacation_hero.index')->with('success', 'Vacation Hero başarıyla güncellendi.');
+        return redirect()->route('back.pages.vacation_hero.index')->with('success', 'Vacation Hero ugurla güncellendi.');
     }
 
     public function destroy($id)
@@ -85,6 +85,6 @@ class VacationHeroController extends Controller
         }
         $vacationHero->delete();
 
-        return redirect()->route('back.pages.vacation_hero.index')->with('success', 'Vacation Hero başarıyla silindi.');
+        return redirect()->route('back.pages.vacation_hero.index')->with('success', 'Vacation Hero ugurla silindi.');
     }
 } 
