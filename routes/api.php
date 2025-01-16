@@ -16,6 +16,8 @@ use App\Http\Controllers\Api\TranslationManageController;
 use App\Http\Controllers\Api\LogoApiController;
 use App\Http\Controllers\Api\AboutHeroApiController;
 use App\Http\Controllers\Api\AboutSectionApiController;
+use App\Http\Controllers\Api\LeaderApiController;
+use App\Http\Controllers\Api\KeyfiyetApiController;
 
 // About Routes
 Route::get('/about', [AboutController::class, 'index']);
@@ -84,6 +86,18 @@ Route::get('/about-sections', [AboutSectionApiController::class, 'index']);
 Route::get('/about-sections/{id}', [AboutSectionApiController::class, 'show']);
 Route::get('/about-sections/key/{key}', [AboutSectionApiController::class, 'getByKey']);
 Route::get('/about-sections/group/{group}', [AboutSectionApiController::class, 'getByGroup']);
+
+// Leader Routes
+Route::get('/leaders', [LeaderApiController::class, 'index']);
+Route::get('/leaders/{id}', [LeaderApiController::class, 'show']);
+Route::get('/leaders/key/{key}', [LeaderApiController::class, 'getByKey']);
+Route::get('/leaders/status/{status}', [LeaderApiController::class, 'getByStatus']);
+
+// Keyfiyet Routes
+Route::get('/keyfiyets', [KeyfiyetApiController::class, 'index']);
+Route::get('/keyfiyets/{id}', [KeyfiyetApiController::class, 'show']);
+Route::get('/keyfiyets/key/{key}', [KeyfiyetApiController::class, 'getByKey']);
+Route::get('/keyfiyets/filial/{filial}', [KeyfiyetApiController::class, 'getByFilial']);
 
 
 

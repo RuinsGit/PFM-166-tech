@@ -20,4 +20,19 @@ class Keyfiyet extends Model
         'keyfiyet_title_en',
         'keyfiyet_title_ru',
     ];
+
+    public function getFilialTitleAttribute()
+    {
+        return $this->{'filial_title_' . app()->getLocale()};
+    }
+
+    public function getCustomerTitleAttribute()
+    {
+        return $this->{'customer_title_' . app()->getLocale()};
+    }
+
+    public function getKeyfiyetTitleAttribute()
+    {
+        return $this->{'keyfiyet_title_' . app()->getLocale()};
+    }   
 }

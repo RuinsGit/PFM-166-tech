@@ -15,4 +15,9 @@ class Leader extends Model
         'position_ru',
         'status'
     ];
+
+    public function getPositionAttribute()
+    {
+        return $this->{'position_' . app()->getLocale()};
+    }
 } 
