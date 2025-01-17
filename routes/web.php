@@ -252,14 +252,14 @@ Route::prefix('admin')->group(function () {
             // Blog Type routes
             Route::resource('blog_type', BlogTypeController::class);
 
-            // Seo routes
+            // SEO routes
             Route::get('seo', [SeoController::class, 'index'])->name('seo.index');
             Route::get('seo/create', [SeoController::class, 'create'])->name('seo.create');
             Route::post('seo', [SeoController::class, 'store'])->name('seo.store');
-            Route::get('seo/{seo}/edit', [SeoController::class, 'edit'])->name('seo.edit');
-            Route::put('seo/{seo}', [SeoController::class, 'update'])->name('seo.update');
-            Route::delete('seo/{seo}', [SeoController::class, 'destroy'])->name('seo.destroy');
-            Route::post('seo/toggle-status/{seo}', [SeoController::class, 'toggleStatus'])->name('seo.toggle-status');
+            Route::get('seo/{id}/edit', [SeoController::class, 'edit'])->name('seo.edit');
+            Route::put('seo/{id}', [SeoController::class, 'update'])->name('seo.update');
+            Route::delete('seo/{id}', [SeoController::class, 'destroy'])->name('seo.destroy');
+            Route::post('seo/toggle-status/{id}', [SeoController::class, 'toggleStatus'])->name('seo.toggle-status');
 
         });     
     });

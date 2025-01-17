@@ -29,4 +29,48 @@ class SeoController extends Controller
 
         return new SeoResource($seo);
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'key' => 'required|unique:seos',
+            'meta_title_az' => 'required',
+            'meta_title_en' => 'required',
+            'meta_title_ru' => 'required',
+            'meta_description_az' => 'required',
+            'meta_description_en' => 'required',
+            'meta_description_ru' => 'required',
+        ]);
+
+        $seo = Seo::create($request->all());
+        return new SeoResource($seo);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $seo = Seo::findOrFail($id);
+
+        $request->validate([
+            'key' => 'required|unique:seos,key,' . $id,
+            'meta_title_az' => 'required',
+            'meta_title_en' => 'required',
+            'meta_title_ru' => 'required',
+            'meta_description_az' => 'required',
+            'meta_description_en' => 'required',
+            'meta_description_ru' => 'required',
+        ]);
+
+        $seo->update($request->all());
+        return new SeoResource($seo);
+    }
+
+    public function destroy($id)
+    {
+        $seo = Seo::findOrFail($id);
+        $seo->delete();
+
+        return response()->json([
+            'message' => 'SEO məlumatı uğurla silindi'
+        ]);
+    }
 } 

@@ -172,5 +172,14 @@ Route::prefix('contact-requests')->group(function () {
     Route::delete('/{id}', [ContactRequestApiController::class, 'destroy']);
 });
 
+// Seo Routes
+Route::prefix('seo')->group(function () {
+    Route::get('/', [App\Http\Controllers\Api\SeoController::class, 'index']);
+    Route::get('/{key}', [App\Http\Controllers\Api\SeoController::class, 'show']);
+    Route::post('/', [App\Http\Controllers\Api\SeoController::class, 'store']);
+    Route::put('/{id}', [App\Http\Controllers\Api\SeoController::class, 'update']);
+    Route::delete('/{id}', [App\Http\Controllers\Api\SeoController::class, 'destroy']);
+});
+
 
 
