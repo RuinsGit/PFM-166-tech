@@ -27,7 +27,7 @@ use App\Http\Controllers\Admin\ContactRequestController;
 use App\Http\Controllers\Admin\SocialMediaController;
 use App\Http\Controllers\Admin\SocialshareController;
 use App\Http\Controllers\Admin\BlogTypeController;
-
+use App\Http\Controllers\Admin\SeoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -251,6 +251,15 @@ Route::prefix('admin')->group(function () {
 
             // Blog Type routes
             Route::resource('blog_type', BlogTypeController::class);
+
+            // Seo routes
+            Route::get('seo', [SeoController::class, 'index'])->name('seo.index');
+            Route::get('seo/create', [SeoController::class, 'create'])->name('seo.create');
+            Route::post('seo', [SeoController::class, 'store'])->name('seo.store');
+            Route::get('seo/{seo}/edit', [SeoController::class, 'edit'])->name('seo.edit');
+            Route::put('seo/{seo}', [SeoController::class, 'update'])->name('seo.update');
+            Route::delete('seo/{seo}', [SeoController::class, 'destroy'])->name('seo.destroy');
+            Route::post('seo/toggle-status/{seo}', [SeoController::class, 'toggleStatus'])->name('seo.toggle-status');
 
         });     
     });

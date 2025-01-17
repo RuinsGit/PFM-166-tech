@@ -46,7 +46,13 @@
                                 <i class="mdi mdi-image"></i>
                                 <span>Logolar</span>
                             </a>
-                        </li>   
+                        </li>
+                        <li>
+                            <a href="{{ route('back.pages.seo.index') }}">
+                                <i class="ri-search-line"></i>
+                                <span>SEO</span>
+                            </a>
+                        </li>
                        
                     </ul>
                 </li>
