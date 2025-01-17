@@ -34,11 +34,11 @@ class GalleryController extends Controller
             'title_az' => 'required|string|max:255',
             'title_en' => 'required|string|max:255',
             'title_ru' => 'required|string|max:255',
-            'main_image' => 'required|image|mimes:jpeg,png,jpg',
+            'main_image' => 'required|image|mimes:jpeg,png,jpg,webp,avif,gif',
             'main_image_alt_az' => 'required|string|max:255',
             'main_image_alt_en' => 'required|string|max:255',
             'main_image_alt_ru' => 'required|string|max:255',
-            'bottom_images.*' => 'nullable|image|mimes:jpeg,png,jpg',
+            'bottom_images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp,avif,gif',
             'bottom_images_alt_az.*' => 'nullable|string|max:255',
             'bottom_images_alt_en.*' => 'nullable|string|max:255',
             'bottom_images_alt_ru.*' => 'nullable|string|max:255',
@@ -51,7 +51,6 @@ class GalleryController extends Controller
             'gallery_type_id' => 'required|exists:gallery_types,id',
         ]);
 
-        // Ana resmi yükle
         if ($request->hasFile('main_image')) {
             $file = $request->file('main_image');
             $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
@@ -68,7 +67,6 @@ class GalleryController extends Controller
             }
         }
 
-        // Alt resimleri yükle
         if ($request->hasFile('bottom_images')) {
             $bottomImages = [];
             $bottomImagesAltAz = [];
@@ -87,8 +85,6 @@ class GalleryController extends Controller
                     imagedestroy($imageResource);
 
                     $bottomImages[] = 'uploads/' . $webpFileName;
-                    
-                    // Store corresponding ALT texts
                     $bottomImagesAltAz[] = $request->bottom_images_alt_az[$key] ?? '';
                     $bottomImagesAltEn[] = $request->bottom_images_alt_en[$key] ?? '';
                     $bottomImagesAltRu[] = $request->bottom_images_alt_ru[$key] ?? '';
@@ -101,7 +97,6 @@ class GalleryController extends Controller
             $data['bottom_images_alt_ru'] = json_encode($bottomImagesAltRu);
         }
 
-        // Gallery oluştur
         Gallery::create($data);
 
         return redirect()->route('back.pages.galleries.index')->with('success', 'Qalereya uğurla yaradıldı.');
@@ -122,11 +117,11 @@ class GalleryController extends Controller
             'title_az' => 'required|string|max:255',
             'title_en' => 'required|string|max:255',
             'title_ru' => 'required|string|max:255',
-            'main_image' => 'nullable|image|mimes:jpeg,png,jpg',
+            'main_image' => 'nullable|image|mimes:jpeg,png,jpg,webp,avif,gif',
             'main_image_alt_az' => 'required|string|max:255',
             'main_image_alt_en' => 'required|string|max:255',
             'main_image_alt_ru' => 'required|string|max:255',
-            'bottom_images.*' => 'nullable|image|mimes:jpeg,png,jpg',
+            'bottom_images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp,avif,gif',
             'bottom_images_alt_az.*' => 'nullable|string|max:255',
             'bottom_images_alt_en.*' => 'nullable|string|max:255',
             'bottom_images_alt_ru.*' => 'nullable|string|max:255',
@@ -139,9 +134,7 @@ class GalleryController extends Controller
             'gallery_type_id' => 'required|exists:gallery_types,id',
         ]);
 
-        // Ana resmi güncelle
         if ($request->hasFile('main_image')) {
-            // Eski resmi sil
             if ($gallery->main_image) {
                 $oldImagePath = public_path($gallery->main_image);
                 if (file_exists($oldImagePath)) {
@@ -164,9 +157,7 @@ class GalleryController extends Controller
             }
         }
 
-        // Alt resimleri güncelle
         if ($request->hasFile('bottom_images')) {
-            // Eski resimleri sil
             if ($gallery->bottom_images) {
                 $oldImages = json_decode($gallery->bottom_images);
                 foreach ($oldImages as $oldImage) {
@@ -194,8 +185,6 @@ class GalleryController extends Controller
                     imagedestroy($imageResource);
 
                     $bottomImages[] = 'uploads/' . $webpFileName;
-                    
-                    // Store corresponding ALT texts
                     $bottomImagesAltAz[] = $request->bottom_images_alt_az[$key] ?? '';
                     $bottomImagesAltEn[] = $request->bottom_images_alt_en[$key] ?? '';
                     $bottomImagesAltRu[] = $request->bottom_images_alt_ru[$key] ?? '';
@@ -208,7 +197,6 @@ class GalleryController extends Controller
             $data['bottom_images_alt_ru'] = json_encode($bottomImagesAltRu);
         }
 
-        // Gallery güncelle
         $gallery->update($data);
 
         return redirect()->route('back.pages.galleries.index')->with('success', 'Qalereya uğurla yeniləndi.');

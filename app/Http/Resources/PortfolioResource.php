@@ -33,7 +33,8 @@ class PortfolioResource extends JsonResource
             'description' => $this->{'description_' . app()->getLocale()},
             'meta_title' => $this->{'meta_title_' . app()->getLocale()},
             'meta_description' => $this->{'meta_description_' . app()->getLocale()},
-            'portfolio_type' => new PortfolioTypeResource($this->whenLoaded('portfolioType'))
+            'portfolio_type' => new PortfolioTypeResource($this->whenLoaded('portfolioType')),
+            'created_at' => $this->created_at->format('d.m.Y')
         ];
     }
 } 

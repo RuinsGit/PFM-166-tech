@@ -16,6 +16,7 @@ class CommentResource extends JsonResource
             'title' => $this->title,
             'comment' => $this->comment,
             'status' => $this->status,
+            'created_at' => $this->created_at->format('d.m.Y')
         ];
     }
 } 
