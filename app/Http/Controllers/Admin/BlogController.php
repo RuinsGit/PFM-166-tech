@@ -9,13 +9,6 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    private $destinationPath;
-
-    public function __construct()
-    {
-        $this->destinationPath = public_path('uploads');
-    }
-
     public function index()
     {
         $blogs = Blog::with('blogType')->orderBy('id', 'desc')->get();
@@ -35,11 +28,11 @@ class BlogController extends Controller
             'title_az' => 'required|string|max:255',
             'title_en' => 'required|string|max:255',
             'title_ru' => 'required|string|max:255',
-            'main_image' => 'required|image|mimes:jpeg,png,jpg',
+            'main_image' => 'required|image|mimes:jpeg,png,jpg,webp,avif,gif',
             'main_image_alt_az' => 'nullable|string|max:255',
             'main_image_alt_en' => 'nullable|string|max:255',
             'main_image_alt_ru' => 'nullable|string|max:255',
-            'bottom_images.*' => 'nullable|image|mimes:jpeg,png,jpg',
+            'bottom_images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp,avif,gif',
             'bottom_images_alt_az.*' => 'nullable|string|max:255',
             'bottom_images_alt_en.*' => 'nullable|string|max:255',
             'bottom_images_alt_ru.*' => 'nullable|string|max:255',
@@ -60,14 +53,15 @@ class BlogController extends Controller
             'meta_description_ru' => 'nullable|string'
         ]);
 
-        // Ana resmi yükle
+       
         if ($request->hasFile('main_image')) {
             $file = $request->file('main_image');
+            $destinationPath = public_path('uploads');
             $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
             $webpFileName = time() . '_' . $originalFileName . '.webp';
 
             $imageResource = imagecreatefromstring(file_get_contents($file));
-            $webpPath = $this->destinationPath . '/' . $webpFileName;
+            $webpPath = $destinationPath . '/' . $webpFileName;
 
             if ($imageResource) {
                 imagewebp($imageResource, $webpPath, 80);
@@ -77,7 +71,6 @@ class BlogController extends Controller
             }
         }
 
-        // Alt resimleri yükle
         if ($request->hasFile('bottom_images')) {
             $bottomImages = [];
             $bottomImagesAltAz = [];
@@ -87,9 +80,10 @@ class BlogController extends Controller
             foreach ($request->file('bottom_images') as $key => $file) {
                 $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $webpFileName = time() . '_' . $originalFileName . '.webp';
+                $destinationPath = public_path('uploads');
 
                 $imageResource = imagecreatefromstring(file_get_contents($file));
-                $webpPath = $this->destinationPath . '/' . $webpFileName;
+                $webpPath = $destinationPath . '/' . $webpFileName;
 
                 if ($imageResource) {
                     imagewebp($imageResource, $webpPath, 80);
@@ -97,7 +91,6 @@ class BlogController extends Controller
 
                     $bottomImages[] = 'uploads/' . $webpFileName;
                     
-                    // Store corresponding ALT texts
                     $bottomImagesAltAz[] = $request->bottom_images_alt_az[$key] ?? '';
                     $bottomImagesAltEn[] = $request->bottom_images_alt_en[$key] ?? '';
                     $bottomImagesAltRu[] = $request->bottom_images_alt_ru[$key] ?? '';
@@ -130,11 +123,11 @@ class BlogController extends Controller
             'title_az' => 'required|string|max:255',
             'title_en' => 'required|string|max:255',
             'title_ru' => 'required|string|max:255',
-            'main_image' => 'nullable|image|mimes:jpeg,png,jpg',
+            'main_image' => 'nullable|image|mimes:jpeg,png,jpg,webp,avif,gif',
             'main_image_alt_az' => 'required|string|max:255',
             'main_image_alt_en' => 'required|string|max:255',
             'main_image_alt_ru' => 'required|string|max:255',
-            'bottom_images.*' => 'nullable|image|mimes:jpeg,png,jpg',
+            'bottom_images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp,avif,gif',
             'bottom_images_alt_az.*' => 'nullable|string|max:255',
             'bottom_images_alt_en.*' => 'nullable|string|max:255',
             'bottom_images_alt_ru.*' => 'nullable|string|max:255',
@@ -156,9 +149,7 @@ class BlogController extends Controller
             'blog_type_id' => 'required|exists:blog_types,id'
         ]);
 
-        // Ana resmi güncelle
         if ($request->hasFile('main_image')) {
-            // Eski resmi sil
             if ($blog->main_image) {
                 $oldImagePath = public_path($blog->main_image);
                 if (file_exists($oldImagePath)) {
@@ -167,11 +158,12 @@ class BlogController extends Controller
             }
 
             $file = $request->file('main_image');
+            $destinationPath = public_path('uploads');
             $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
             $webpFileName = time() . '_' . $originalFileName . '.webp';
 
             $imageResource = imagecreatefromstring(file_get_contents($file));
-            $webpPath = $this->destinationPath . '/' . $webpFileName;
+            $webpPath = $destinationPath . '/' . $webpFileName;
 
             if ($imageResource) {
                 imagewebp($imageResource, $webpPath, 80);
@@ -181,9 +173,7 @@ class BlogController extends Controller
             }
         }
 
-        // Alt resimleri güncelle
         if ($request->hasFile('bottom_images')) {
-            // Eski resimleri sil
             if ($blog->bottom_images) {
                 $oldImages = json_decode($blog->bottom_images);
                 foreach ($oldImages as $oldImage) {
@@ -202,9 +192,10 @@ class BlogController extends Controller
             foreach ($request->file('bottom_images') as $key => $file) {
                 $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $webpFileName = time() . '_' . $originalFileName . '.webp';
+                $destinationPath = public_path('uploads');
 
                 $imageResource = imagecreatefromstring(file_get_contents($file));
-                $webpPath = $this->destinationPath . '/' . $webpFileName;
+                $webpPath = $destinationPath . '/' . $webpFileName;
 
                 if ($imageResource) {
                     imagewebp($imageResource, $webpPath, 80);
@@ -212,7 +203,6 @@ class BlogController extends Controller
 
                     $bottomImages[] = 'uploads/' . $webpFileName;
                     
-                    // Store corresponding ALT texts
                     $bottomImagesAltAz[] = $request->bottom_images_alt_az[$key] ?? '';
                     $bottomImagesAltEn[] = $request->bottom_images_alt_en[$key] ?? '';
                     $bottomImagesAltRu[] = $request->bottom_images_alt_ru[$key] ?? '';
@@ -234,7 +224,6 @@ class BlogController extends Controller
     {
         $blog = Blog::findOrFail($id);
         
-        // Resimleri sil
         if ($blog->main_image) {
             $mainImagePath = public_path($blog->main_image);
             if (file_exists($mainImagePath)) {

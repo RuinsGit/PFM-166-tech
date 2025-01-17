@@ -35,7 +35,8 @@ class BlogResource extends JsonResource
             'description_2' => $this->{'description_2_' . app()->getLocale()},
             'meta_title' => $this->{'meta_title_' . app()->getLocale()},
             'meta_description' => $this->{'meta_description_' . app()->getLocale()},
-            'blog_type' => new BlogTypeResource($this->whenLoaded('blogType'))
+            'blog_type' => new BlogTypeResource($this->whenLoaded('blogType')),
+            'created_at' => $this->created_at->format('d.m.Y')
         ];
     }
 }

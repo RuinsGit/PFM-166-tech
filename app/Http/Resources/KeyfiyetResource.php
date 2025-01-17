@@ -17,12 +17,12 @@ class KeyfiyetResource extends JsonResource
             [
                 'count' => $this->number_customer,
                 'title' => $this->customer_title,
-                'id' => $this->id,
+                'id' => $this->id + 1,
             ],
             [
                 'count' => $this->number_keyfiyet,
                 'title' => $this->keyfiyet_title,
-                'id' => $this->id,
+                'id' => $this->id + 2,
             ]
         ];
     }

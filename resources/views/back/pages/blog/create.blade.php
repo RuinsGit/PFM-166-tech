@@ -259,25 +259,6 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="blog_type_id">Bloq Tipi</label>
-                                    <select name="blog_type_id" id="blog_type_id" class="form-control @error('blog_type_id') is-invalid @enderror" required>
-                                        <option value="">Bloq tipi seçin</option>
-                                        @foreach($blog_types as $type)
-                                            <option value="{{ $type->id }}" {{ old('blog_type_id') == $type->id ? 'selected' : '' }}>
-                                                {{ $type->title_az }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('blog_type_id')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="title_az">Başlıq (AZ)</label>
-                                </div>
-
                                 <div class="row mt-3">
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-primary">Yadda saxla</button>
@@ -299,6 +280,7 @@
 
     @push('js')
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function addBottomImage() {
             const container = document.getElementById('bottom-images-container');
@@ -350,6 +332,27 @@
                     ['insert', ['link', 'picture', 'video']],
                     ['view', ['fullscreen', 'codeview', 'help']]
                 ]
+            });
+
+            // Sweet Alert for form submission
+            $('form').on('submit', function(e) {
+                e.preventDefault();
+                let form = this;
+                
+                Swal.fire({
+                    title: 'Əminsiniz?',
+                    text: 'Bu məlumatları yadda saxlamaq istədiyinizə əminsiniz?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Bəli',
+                    cancelButtonText: 'Xeyr'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
             });
         });
     </script>
