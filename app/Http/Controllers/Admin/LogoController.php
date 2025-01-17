@@ -6,9 +6,51 @@ use App\Http\Controllers\Controller;
 use App\Models\Logo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class LogoController extends Controller
 {
+    protected $allowedMimeTypes = [
+        'image/jpeg',
+        'image/png',
+        'image/gif',
+        'image/svg+xml',
+        'image/webp',
+        'application/svg+xml',
+        'application/svg',
+    ];
+
+    protected function handleImageUpload($file, $prefix = '')
+    {
+        $destinationPath = public_path('uploads/logos');
+        $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+
+        // SVG dosyası kontrolü
+        if ($file->getClientOriginalExtension() === 'svg') {
+            $fileName = time() . '_' . $prefix . '_' . $originalFileName . '.svg';
+            $file->move($destinationPath, $fileName);
+            return 'uploads/logos/' . $fileName;
+        } else {
+            // Diğer resim formatları için webp dönüşümü
+            $webpFileName = time() . '_' . $prefix . '_' . $originalFileName . '.webp';
+
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
+
+            $imageResource = imagecreatefromstring(file_get_contents($file));
+            $webpPath = $destinationPath . '/' . $webpFileName;
+
+            if ($imageResource) {
+                imagewebp($imageResource, $webpPath, 80);
+                imagedestroy($imageResource);
+                return 'uploads/logos/' . $webpFileName;
+            }
+
+            throw new \Exception('Resim işlenirken bir hata oluştu.');
+        }
+    }
+
     public function index()
     {
         $logos = Logo::all();
@@ -31,8 +73,8 @@ class LogoController extends Controller
         }
 
         $request->validate([
-            'logo_1_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'logo_2_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'logo_1_image' => 'required|max:2048',
+            'logo_2_image' => 'required|max:2048',
             'logo_alt1_az' => 'required|string',
             'logo_alt1_en' => 'required|string',
             'logo_alt1_ru' => 'required|string',
@@ -52,39 +94,44 @@ class LogoController extends Controller
 
         $logo = new Logo();
 
-        // Logo 1 için dosya yükleme
-        if ($request->hasFile('logo_1_image')) {
-            $image = $request->file('logo_1_image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/logos'), $imageName);
-            $logo->logo_1_image = 'uploads/logos/' . $imageName;
+        try {
+            // Logo 1 için dosya yükleme
+            if ($request->hasFile('logo_1_image')) {
+                $file = $request->file('logo_1_image');
+                if (!in_array($file->getMimeType(), $this->allowedMimeTypes)) {
+                    return redirect()->back()->withErrors(['logo_1_image' => 'Desteklenmeyen dosya formatı. Lütfen JPG, JPEG, PNG, GIF, SVG veya WEBP formatında bir dosya yükleyin.']);
+                }
+                $logo->logo_1_image = $this->handleImageUpload($file, 'logo1');
+            }
+
+            // Logo 2 için dosya yükleme
+            if ($request->hasFile('logo_2_image')) {
+                $file = $request->file('logo_2_image');
+                if (!in_array($file->getMimeType(), $this->allowedMimeTypes)) {
+                    return redirect()->back()->withErrors(['logo_2_image' => 'Desteklenmeyen dosya formatı. Lütfen JPG, JPEG, PNG, GIF, SVG veya WEBP formatında bir dosya yükleyin.']);
+                }
+                $logo->logo_2_image = $this->handleImageUpload($file, 'logo2');
+            }
+
+            // Diğer alanları kaydet
+            $logo->logo_alt1_az = $request->logo_alt1_az;
+            $logo->logo_alt1_en = $request->logo_alt1_en;
+            $logo->logo_alt1_ru = $request->logo_alt1_ru;
+            $logo->logo_alt2_az = $request->logo_alt2_az;
+            $logo->logo_alt2_en = $request->logo_alt2_en;
+            $logo->logo_alt2_ru = $request->logo_alt2_ru;
+            $logo->logo_title1_az = $request->logo_title1_az;
+            $logo->logo_title1_en = $request->logo_title1_en;
+            $logo->logo_title1_ru = $request->logo_title1_ru;
+            $logo->logo_title2_az = $request->logo_title2_az;
+            $logo->logo_title2_en = $request->logo_title2_en;
+            $logo->logo_title2_ru = $request->logo_title2_ru;
+
+            $logo->save();
+            return redirect()->route('back.pages.logos.index')->with('success', 'Logo başarıyla eklendi.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Logo işlenirken bir hata oluştu: ' . $e->getMessage()]);
         }
-
-        // Logo 2 için dosya yükleme
-        if ($request->hasFile('logo_2_image')) {
-            $image = $request->file('logo_2_image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/logos'), $imageName);
-            $logo->logo_2_image = 'uploads/logos/' . $imageName;
-        }
-
-        // Diğer alanları kaydet
-        $logo->logo_alt1_az = $request->logo_alt1_az;
-        $logo->logo_alt1_en = $request->logo_alt1_en;
-        $logo->logo_alt1_ru = $request->logo_alt1_ru;
-        $logo->logo_alt2_az = $request->logo_alt2_az;
-        $logo->logo_alt2_en = $request->logo_alt2_en;
-        $logo->logo_alt2_ru = $request->logo_alt2_ru;
-        $logo->logo_title1_az = $request->logo_title1_az;
-        $logo->logo_title1_en = $request->logo_title1_en;
-        $logo->logo_title1_ru = $request->logo_title1_ru;
-        $logo->logo_title2_az = $request->logo_title2_az;
-        $logo->logo_title2_en = $request->logo_title2_en;
-        $logo->logo_title2_ru = $request->logo_title2_ru;
-
-        $logo->save();
-
-        return redirect()->route('back.pages.logos.index')->with('success', 'Logo başarıyla eklendi.');
     }
 
     public function edit($id)
@@ -96,8 +143,8 @@ class LogoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'logo_1_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'logo_2_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'logo_1_image' => 'nullable|max:2048',
+            'logo_2_image' => 'nullable|max:2048',
             'logo_alt1_az' => 'required|string',
             'logo_alt1_en' => 'required|string',
             'logo_alt1_ru' => 'required|string',
@@ -114,51 +161,56 @@ class LogoController extends Controller
 
         $logo = Logo::findOrFail($id);
 
-        // Logo 1 için dosya güncelleme
-        if ($request->hasFile('logo_1_image')) {
-            // Eski dosyayı sil
-            if ($logo->logo_1_image && File::exists(public_path($logo->logo_1_image))) {
-                File::delete(public_path($logo->logo_1_image));
+        try {
+            // Logo 1 için dosya güncelleme
+            if ($request->hasFile('logo_1_image')) {
+                $file = $request->file('logo_1_image');
+                if (!in_array($file->getMimeType(), $this->allowedMimeTypes)) {
+                    return redirect()->back()->withErrors(['logo_1_image' => 'Desteklenmeyen dosya formatı. Lütfen JPG, JPEG, PNG, GIF, SVG veya WEBP formatında bir dosya yükleyin.']);
+                }
+
+                // Eski dosyayı sil
+                if ($logo->logo_1_image && File::exists(public_path($logo->logo_1_image))) {
+                    File::delete(public_path($logo->logo_1_image));
+                }
+
+                $logo->logo_1_image = $this->handleImageUpload($file, 'logo1');
             }
 
-            // Yeni dosyayı yükle
-            $image = $request->file('logo_1_image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/logos'), $imageName);
-            $logo->logo_1_image = 'uploads/logos/' . $imageName;
-        }
+            // Logo 2 için dosya güncelleme
+            if ($request->hasFile('logo_2_image')) {
+                $file = $request->file('logo_2_image');
+                if (!in_array($file->getMimeType(), $this->allowedMimeTypes)) {
+                    return redirect()->back()->withErrors(['logo_2_image' => 'Desteklenmeyen dosya formatı. Lütfen JPG, JPEG, PNG, GIF, SVG veya WEBP formatında bir dosya yükleyin.']);
+                }
 
-        // Logo 2 için dosya güncelleme
-        if ($request->hasFile('logo_2_image')) {
-            // Eski dosyayı sil
-            if ($logo->logo_2_image && File::exists(public_path($logo->logo_2_image))) {
-                File::delete(public_path($logo->logo_2_image));
+                // Eski dosyayı sil
+                if ($logo->logo_2_image && File::exists(public_path($logo->logo_2_image))) {
+                    File::delete(public_path($logo->logo_2_image));
+                }
+
+                $logo->logo_2_image = $this->handleImageUpload($file, 'logo2');
             }
 
-            // Yeni dosyayı yükle
-            $image = $request->file('logo_2_image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/logos'), $imageName);
-            $logo->logo_2_image = 'uploads/logos/' . $imageName;
+            // Diğer alanları güncelle
+            $logo->logo_alt1_az = $request->logo_alt1_az;
+            $logo->logo_alt1_en = $request->logo_alt1_en;
+            $logo->logo_alt1_ru = $request->logo_alt1_ru;
+            $logo->logo_alt2_az = $request->logo_alt2_az;
+            $logo->logo_alt2_en = $request->logo_alt2_en;
+            $logo->logo_alt2_ru = $request->logo_alt2_ru;
+            $logo->logo_title1_az = $request->logo_title1_az;
+            $logo->logo_title1_en = $request->logo_title1_en;
+            $logo->logo_title1_ru = $request->logo_title1_ru;
+            $logo->logo_title2_az = $request->logo_title2_az;
+            $logo->logo_title2_en = $request->logo_title2_en;
+            $logo->logo_title2_ru = $request->logo_title2_ru;
+
+            $logo->save();
+            return redirect()->route('back.pages.logos.index')->with('success', 'Logo uğurla yeniləndi.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Logo güncellenirken bir hata oluştu: ' . $e->getMessage()]);
         }
-
-        // Diğer alanları güncelle
-        $logo->logo_alt1_az = $request->logo_alt1_az;
-        $logo->logo_alt1_en = $request->logo_alt1_en;
-        $logo->logo_alt1_ru = $request->logo_alt1_ru;
-        $logo->logo_alt2_az = $request->logo_alt2_az;
-        $logo->logo_alt2_en = $request->logo_alt2_en;
-        $logo->logo_alt2_ru = $request->logo_alt2_ru;
-        $logo->logo_title1_az = $request->logo_title1_az;
-        $logo->logo_title1_en = $request->logo_title1_en;
-        $logo->logo_title1_ru = $request->logo_title1_ru;
-        $logo->logo_title2_az = $request->logo_title2_az;
-        $logo->logo_title2_en = $request->logo_title2_en;
-        $logo->logo_title2_ru = $request->logo_title2_ru;
-
-        $logo->save();
-
-        return redirect()->route('back.pages.logos.index')->with('success', 'Logo uğurla yeniləndi.');
     }
 
     public function destroy($id)
