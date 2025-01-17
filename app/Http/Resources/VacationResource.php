@@ -17,6 +17,7 @@ class VacationResource extends JsonResource
             'email_text' => $this->email_text,
             'application_deadline' => $this->application_deadline,
             'view_count' => $this->view_count,
+            'created_at' => $this->created_at->format('d.m.Y')
         ];
     }
 } 
