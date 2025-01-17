@@ -11,11 +11,11 @@ class ContactApiController extends Controller
 {
     public function index()
     {
-        $contacts = Contact::all();
-        if ($contacts->isEmpty()) {
+        $contact = Contact::first();
+        if (!$contact) {
             return response()->json(['message' => 'No Contacts found'], 404);
         }
-        return ContactResource::collection($contacts);
+        return new ContactResource($contact);
     }
 
     public function show($id)
@@ -29,8 +29,8 @@ class ContactApiController extends Controller
 
     public function store(Request $request)
     {
-        if (Contact::count() > 0) {
-            return response()->json(['message' => 'Maximum 1 contact information can be added'], 400);
+        if (Contact::count() >= 1) {
+            return response()->json(['error' => 'Hal-hazırda bir əlaqə mövcuddur. Yeni bir əlaqə əlavə edə bilməzsiniz.'], 400);
         }
 
         $data = $request->validate([
@@ -50,7 +50,7 @@ class ContactApiController extends Controller
 
         $contact = Contact::create($data);
 
-        return response()->json(new ContactResource($contact), 201);
+        return response()->json(['message' => 'Əlaqə uğurla yaradıldı', 'data' => new ContactResource($contact)], 201);
     }
 
     public function update(Request $request, $id)
@@ -74,7 +74,7 @@ class ContactApiController extends Controller
 
         $contact->update($data);
 
-        return response()->json(new ContactResource($contact), 200);
+        return response()->json(['message' => 'Əlaqə uğurla yeniləndi', 'data' => new ContactResource($contact)], 200);
     }
 
     public function destroy($id)
@@ -86,7 +86,7 @@ class ContactApiController extends Controller
 
         $contact->delete();
 
-        return response()->json(['message' => 'Contact successfully deleted'], 204);
+        return response()->json(['message' => 'Əlaqə uğurla silindi'], 200);
     }
 
     private function uploadImages(Request $request, array $data, Contact $contact = null)
