@@ -78,6 +78,21 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group mb-3">
+                                    <label class="d-block">Status</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="status" id="statusActive" value="1" {{ old('status', $seo->status) == 1 ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="statusActive">Aktiv</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="status" id="statusInactive" value="0" {{ old('status', $seo->status) == 0 ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="statusInactive">Deaktiv</label>
+                                    </div>
+                                    @error('status')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
                                 <div class="row">
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-primary">Yadda saxla</button>
