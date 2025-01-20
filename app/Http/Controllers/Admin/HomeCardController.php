@@ -23,7 +23,7 @@ class HomeCardController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|',
             'image_alt_az' => 'required|string',
             'image_alt_en' => 'required|string',
             'image_alt_ru' => 'required|string',
@@ -83,7 +83,7 @@ class HomeCardController extends Controller
     public function update(Request $request, HomeCard $homeCard)
     {
         $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|',
             'image_alt_az' => 'required|string',
             'image_alt_en' => 'required|string',
             'image_alt_ru' => 'required|string',

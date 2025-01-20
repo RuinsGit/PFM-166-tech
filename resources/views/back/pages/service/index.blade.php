@@ -283,7 +283,24 @@
             cancelButtonText: 'Xeyr'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = `{{ route('back.pages.service.destroy', '') }}/${id}`;
+                var form = document.createElement('form');
+                form.action = `{{ route('back.pages.service.destroy', '') }}/${id}`;
+                form.method = 'POST';
+                
+                var methodInput = document.createElement('input');
+                methodInput.type = 'hidden';
+                methodInput.name = '_method';
+                methodInput.value = 'DELETE';
+                
+                var tokenInput = document.createElement('input');
+                tokenInput.type = 'hidden';
+                tokenInput.name = '_token';
+                tokenInput.value = '{{ csrf_token() }}';
+                
+                form.appendChild(methodInput);
+                form.appendChild(tokenInput);
+                document.body.appendChild(form);
+                form.submit();
             }
         });
     }
