@@ -14,19 +14,19 @@ class ContactResource extends JsonResource
                 'value' => $this->number,
                 'image' => $this->number_image ? asset($this->number_image) : null,
                 
-                'id' => $this->id,
+                'id' => 1,
             ],
             [
                 'value' => $this->mail,
                 'image' => $this->mail_image ? asset($this->mail_image) : null,
                 
-                'id' => $this->id + 1,
+                'id' => 2,
             ],
             [
                 'value' => $this->address,
                 'image' => $this->address_image ? asset($this->address_image) : null,
                 
-                'id' => $this->id + 2,
+                'id' => 3,
             ],
             [
                 'value' => $this->filial_description,
