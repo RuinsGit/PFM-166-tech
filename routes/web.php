@@ -28,7 +28,8 @@ use App\Http\Controllers\Admin\SocialMediaController;
 use App\Http\Controllers\Admin\SocialshareController;
 use App\Http\Controllers\Admin\BlogTypeController;
 use App\Http\Controllers\Admin\SeoController;
-
+use App\Http\Controllers\Admin\SocialfooterController;
+use App\Http\Controllers\Admin\ContactfooterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -260,6 +261,24 @@ Route::prefix('admin')->group(function () {
             Route::put('seo/{id}', [SeoController::class, 'update'])->name('seo.update');
             Route::delete('seo/{id}', [SeoController::class, 'destroy'])->name('seo.destroy');
             Route::post('seo/toggle-status/{id}', [SeoController::class, 'toggleStatus'])->name('seo.toggle-status');
+
+            // Social Footer routes
+            Route::get('socialfooter', [SocialfooterController::class, 'index'])->name('socialfooter.index');
+            Route::get('socialfooter/create', [SocialfooterController::class, 'create'])->name('socialfooter.create');
+            Route::post('socialfooter', [SocialfooterController::class, 'store'])->name('socialfooter.store');
+            Route::get('socialfooter/{id}/edit', [SocialfooterController::class, 'edit'])->name('socialfooter.edit');
+            Route::put('socialfooter/{id}', [SocialfooterController::class, 'update'])->name('socialfooter.update');
+            Route::delete('socialfooter/{id}', [SocialfooterController::class, 'destroy'])->name('socialfooter.destroy');
+            Route::post('socialfooter/order', [SocialfooterController::class, 'order'])->name('socialfooter.order');
+            Route::post('socialfooter/toggle-status/{id}', [SocialfooterController::class, 'toggleStatus'])->name('socialfooter.toggle-status');
+
+            // Contact Footer routes
+            Route::get('contactfooter', [ContactfooterController::class, 'index'])->name('contactfooter.index');
+            Route::get('contactfooter/create', [ContactfooterController::class, 'create'])->name('contactfooter.create');
+            Route::post('contactfooter', [ContactfooterController::class, 'store'])->name('contactfooter.store');
+            Route::get('contactfooter/{id}/edit', [ContactfooterController::class, 'edit'])->name('contactfooter.edit');
+            Route::put('contactfooter/{id}', [ContactfooterController::class, 'update'])->name('contactfooter.update');
+            Route::delete('contactfooter/{id}', [ContactfooterController::class, 'destroy'])->name('contactfooter.destroy');
 
         });     
     });

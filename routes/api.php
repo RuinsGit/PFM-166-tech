@@ -26,7 +26,8 @@ use App\Http\Controllers\Api\VacationApiController;
 use App\Http\Controllers\Api\VacationHeroApiController;
 use App\Http\Controllers\Api\ContactApiController;
 use App\Http\Controllers\Api\ContactRequestApiController;
-
+use App\Http\Controllers\Api\SocialfooterApiController;
+use App\Http\Controllers\Api\ContactfooterApiController;
 // About Routes
 Route::get('/about', [AboutController::class, 'index']);
 Route::get('/about/{id}', [AboutController::class, 'show']);
@@ -179,6 +180,24 @@ Route::prefix('seo')->group(function () {
     Route::post('/', [App\Http\Controllers\Api\SeoController::class, 'store']);
     Route::put('/{id}', [App\Http\Controllers\Api\SeoController::class, 'update']);
     Route::delete('/{id}', [App\Http\Controllers\Api\SeoController::class, 'destroy']);
+});
+
+// Social Footer Routes
+Route::prefix('social-footer')->group(function () {
+    Route::get('/', [SocialfooterApiController::class, 'index']);
+    Route::get('/{id}', [SocialfooterApiController::class, 'show']);
+    Route::post('/', [SocialfooterApiController::class, 'store']);
+    Route::put('/{id}', [SocialfooterApiController::class, 'update']);
+    Route::delete('/{id}', [SocialfooterApiController::class, 'destroy']);
+});
+
+// Contact Footer Routes
+Route::prefix('contact-footer')->group(function () {
+    Route::get('/', [ContactfooterApiController::class, 'index']);
+    Route::get('/{id}', [ContactfooterApiController::class, 'show']);
+    Route::post('/', [ContactfooterApiController::class, 'store']);
+    Route::put('/{id}', [ContactfooterApiController::class, 'update']);
+    Route::delete('/{id}', [ContactfooterApiController::class, 'destroy']);
 });
 
 

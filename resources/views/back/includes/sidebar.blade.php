@@ -239,6 +239,12 @@
                             <span>Əlaqə Müraciətləri</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('back.pages.contactfooter.index') }}">
+                            <i class="ri-phone-line"></i>
+                            <span>Əlaqə Footer</span>
+                        </a>
+                    </li>
 
                          
                        
@@ -253,6 +259,12 @@
                         <a href="{{ route('back.pages.socialshare.index') }}">
                             <i class="ri-share-line"></i>
                             <span>Sosial Share</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('back.pages.socialfooter.index') }}">
+                            <i class="ri-share-line"></i>
+                            <span>Sosial Footer</span>
                         </a>
                     </li>
 
