@@ -97,7 +97,7 @@ class SocialfooterController extends Controller
             File::delete(public_path($socialfooter->image));
         }
         
-        $social->delete();
+        $socialfooter->delete();
 
         return redirect()->route('back.pages.socialfooter.index')->with('success', 'Sosial media uğurla silindi');
     }
