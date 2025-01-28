@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ContactRequestResource;
 use App\Models\ContactRequest;
+use App\Mail\ContactMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -50,22 +52,35 @@ class ContactRequestApiController extends Controller
                 'status' => ContactRequest::STATUS_NEW
             ]);
 
-            DB::commit();
+            try {
+                Mail::to('museyibli.ruhin@gmail.com')->send(new ContactMail($contactRequest));
+                
+                DB::commit();
 
-            return response()->json([
-                'message' => 'Contact request created successfully',
-                'data' => new ContactRequestResource($contactRequest)
-            ], 201);
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Mail uğurla göndərildi',
+                    'data' => new ContactRequestResource($contactRequest)
+                ], 201);
 
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json([
-                'message' => 'Validation error',
-                'errors' => $e->errors()
-            ], 422);
+            } catch (\Exception $e) {
+                \Log::error('Mail Xətası: ' . $e->getMessage());
+                
+                DB::commit();
+                
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Məlumatlar yadda saxlanıldı, lakin mail göndərilmədi',
+                    'data' => new ContactRequestResource($contactRequest),
+                    'mail_error' => $e->getMessage()
+                ], 201);
+            }
+
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
-                'message' => 'An error occurred while creating the contact request',
+                'success' => false,
+                'message' => 'Xəta baş verdi',
                 'error' => $e->getMessage()
             ], 500);
         }

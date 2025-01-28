@@ -13,7 +13,9 @@ class ContactRequestResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'number' => $this->number,
+            
             'description' => $this->description,
+
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
