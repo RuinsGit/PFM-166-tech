@@ -53,7 +53,7 @@ class ContactRequestApiController extends Controller
             ]);
 
             try {
-                Mail::to('info@pfm.ae')->send(new ContactMail($contactRequest));
+                Mail::to('museyibli.ruhin@gmail.com')->send(new ContactMail($contactRequest));
                 
                 DB::commit();
 
