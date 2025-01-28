@@ -11,7 +11,7 @@ class BlogTypeResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->{'title_' . app()->getLocale()},
+            'title' => $this->title,
             'status' => (bool) $this->status
         ];
     }

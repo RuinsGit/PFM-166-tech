@@ -24,10 +24,9 @@ class BlogTypeController extends Controller
         $data = $request->validate([
             'title_az' => 'required|string|max:255',
             'title_en' => 'required|string|max:255',
-            'title_ru' => 'required|string|max:255'
+            'title_ru' => 'required|string|max:255',
+            'status' => 'required|boolean',
         ]);
-
-        $data['status'] = true;
 
         BlogType::create($data);
 
@@ -47,10 +46,9 @@ class BlogTypeController extends Controller
         $data = $request->validate([
             'title_az' => 'required|string|max:255',
             'title_en' => 'required|string|max:255',
-            'title_ru' => 'required|string|max:255'
+            'title_ru' => 'required|string|max:255',
+            'status' => 'required|boolean',
         ]);
-
-        $data['status'] = true;
 
         $blog_type->update($data);
 

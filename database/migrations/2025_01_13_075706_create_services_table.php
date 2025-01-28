@@ -11,19 +11,19 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             
-            // Ana Görsel ve ALT'ları
+           
             $table->string('image');
             $table->string('image_alt_az')->nullable();
             $table->string('image_alt_en')->nullable();
             $table->string('image_alt_ru')->nullable();
             
-            // Alt Görsel ve ALT'ları
+            
             $table->string('bottom_image');
             $table->string('bottom_image_alt_az')->nullable();
             $table->string('bottom_image_alt_en')->nullable();
             $table->string('bottom_image_alt_ru')->nullable();
             
-            // Meta Alanları
+            
             $table->string('meta_title_az');
             $table->string('meta_title_en')->nullable();
             $table->string('meta_title_ru')->nullable();
@@ -32,7 +32,7 @@ return new class extends Migration
             $table->text('meta_description_en')->nullable();
             $table->text('meta_description_ru')->nullable();
             
-            // İçerik Alanları
+            
             $table->string('title1_az');
             $table->string('title1_en')->nullable();
             $table->string('title1_ru')->nullable();

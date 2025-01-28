@@ -54,7 +54,7 @@ class ServiceController extends Controller
         try {
             $data = $request->all();
 
-            // Ana görsel işleme
+            
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
@@ -62,7 +62,6 @@ class ServiceController extends Controller
                 $data['image'] = 'uploads/services/' . $imageName;
             }
 
-            // Alt görsel işleme
             if ($request->hasFile('bottom_image')) {
                 $bottomImage = $request->file('bottom_image');
                 $bottomImageName = time() . '_bottom.' . $bottomImage->getClientOriginalExtension();
@@ -125,9 +124,7 @@ class ServiceController extends Controller
             $service = Service::findOrFail($id);
             $data = $request->all();
 
-            // Ana görsel işleme
             if ($request->hasFile('image')) {
-                // Eski görseli sil
                 if ($service->image && File::exists(public_path($service->image))) {
                     File::delete(public_path($service->image));
                 }
@@ -138,9 +135,7 @@ class ServiceController extends Controller
                 $data['image'] = 'uploads/services/' . $imageName;
             }
 
-            // Alt görsel işleme
             if ($request->hasFile('bottom_image')) {
-                // Eski görseli sil
                 if ($service->bottom_image && File::exists(public_path($service->bottom_image))) {
                     File::delete(public_path($service->bottom_image));
                 }
@@ -170,7 +165,6 @@ class ServiceController extends Controller
         try {
             $service = Service::findOrFail($id);
 
-            // Görselleri sil
             if ($service->image && File::exists(public_path($service->image))) {
                 File::delete(public_path($service->image));
             }

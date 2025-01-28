@@ -28,16 +28,24 @@
                             <div class="col-6">
                                 <h3 class="card-title">Bloq Tipləri</h3>
                             </div>
-                            <div class="col-6 text-right">
-                                <a href="{{ route('back.pages.blog_type.create') }}" class="btn btn-primary">Yeni Bloq Tipi</a>
+                            <div class="col-12 d-flex justify-content-end mb-4">
+                                <a href="{{ route('back.pages.blog_type.create') }}" class="btn btn-primary">
+                                    <i class="fas fa-plus"></i> Yeni Bloq Tipi
+                                </a>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table table-hover">
+                        @if(session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+                        <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>№</th>
                                     <th>Başlıq (AZ)</th>
                                     <th>Başlıq (EN)</th>
                                     <th>Başlıq (RU)</th>
@@ -48,27 +56,17 @@
                             <tbody>
                                 @foreach($blog_types as $blog_type)
                                     <tr>
-                                        <td>{{ $blog_type->id }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $blog_type->title_az }}</td>
                                         <td>{{ $blog_type->title_en }}</td>
                                         <td>{{ $blog_type->title_ru }}</td>
+                                        <td>{{ $blog_type->status ? 'Aktiv' : 'Deaktiv' }}</td>
                                         <td>
-                                            @if($blog_type->status)
-                                                <span class="badge badge-success">Aktiv</span>
-                                            @else
-                                                <span class="badge badge-danger">Deaktiv</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('back.pages.blog_type.edit', $blog_type->id) }}" class="btn btn-sm btn-primary">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <form action="{{ route('back.pages.blog_type.destroy', $blog_type->id) }}" method="POST" class="d-inline-block">
+                                            <a href="{{ route('back.pages.blog_type.edit', $blog_type->id) }}" class="btn btn-warning btn-sm">Redaktə et</a>
+                                            <form action="{{ route('back.pages.blog_type.destroy', $blog_type->id) }}" method="POST" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Silmək istədiyinizə əminsiniz?')">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Silmək istədiyinizə əminsiniz?')">Sil</button>
                                             </form>
                                         </td>
                                     </tr>

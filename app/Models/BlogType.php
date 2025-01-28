@@ -12,6 +12,11 @@ class BlogType extends Model
         'title_ru',
         'status'
     ];
+    public function getTitleAttribute()
+    {
+        return $this->getAttribute('title_' . app()->getLocale());
+    }
+
 
     public function blogs()
     {

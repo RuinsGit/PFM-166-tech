@@ -28,6 +28,9 @@ use App\Http\Controllers\Api\ContactApiController;
 use App\Http\Controllers\Api\ContactRequestApiController;
 use App\Http\Controllers\Api\SocialfooterApiController;
 use App\Http\Controllers\Api\ContactfooterApiController;
+use App\Http\Controllers\Api\PortfolioTypeApiController;
+use App\Http\Controllers\Api\GalleryTypeApiController;
+
 // About Routes
 Route::get('/about', [AboutController::class, 'index']);
 Route::get('/about/{id}', [AboutController::class, 'show']);
@@ -199,6 +202,14 @@ Route::prefix('contact-footer')->group(function () {
     Route::put('/{id}', [ContactfooterApiController::class, 'update']);
     Route::delete('/{id}', [ContactfooterApiController::class, 'destroy']);
 });
+
+// Portfolio Type Routes
+Route::get('/portfolio-types', [PortfolioTypeApiController::class, 'index']);
+Route::get('/portfolio-types/{id}', [PortfolioTypeApiController::class, 'show']);
+
+// Gallery Type Routes
+Route::get('/gallery-types', [GalleryTypeApiController::class, 'index']);
+Route::get('/gallery-types/{id}', [GalleryTypeApiController::class, 'show']);
 
 
 
