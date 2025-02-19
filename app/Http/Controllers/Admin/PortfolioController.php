@@ -143,6 +143,7 @@ class PortfolioController extends Controller
             'meta_description_en' => 'nullable|string',
             'meta_description_ru' => 'nullable|string',
             'portfolio_type_id' => 'required|exists:portfolio_types,id',
+            'existing_bottom_images.*' => 'nullable|string',
         ]);
 
         // Ana resmi güncelle
@@ -171,48 +172,65 @@ class PortfolioController extends Controller
         }
 
         // Alt resimleri güncelle
+        $existingImages = $request->input('existing_bottom_images', []);
+        $newBottomImages = [];
+        $newBottomImagesAltAz = [];
+        $newBottomImagesAltEn = [];
+        $newBottomImagesAltRu = [];
+
+        // Mevcut resimleri işle
+        foreach ($existingImages as $index => $image) {
+            if(isset($request->bottom_images_alt_az[$index])) {
+                $newBottomImages[] = $image;
+                $newBottomImagesAltAz[] = $request->bottom_images_alt_az[$index] ?? '';
+                $newBottomImagesAltEn[] = $request->bottom_images_alt_en[$index] ?? '';
+                $newBottomImagesAltRu[] = $request->bottom_images_alt_ru[$index] ?? '';
+            }
+        }
+
+        // Yeni resimleri ekle
         if ($request->hasFile('bottom_images')) {
-            // Eski resimleri sil
-            if ($portfolio->bottom_images) {
-                $oldImages = json_decode($portfolio->bottom_images);
-                foreach ($oldImages as $oldImage) {
+            foreach ($request->file('bottom_images') as $key => $file) {
+                if($file->isValid()) {
+                    $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                    $webpFileName = time() . '_' . $originalFileName . '.webp';
+
+                    $imageResource = imagecreatefromstring(file_get_contents($file));
+                    $webpPath = $this->destinationPath . '/' . $webpFileName;
+
+                    if ($imageResource) {
+                        imagewebp($imageResource, $webpPath, 80);
+                        imagedestroy($imageResource);
+
+                        $newBottomImages[] = 'uploads/' . $webpFileName;
+                        
+                        // Yeni ALT metinlerini ekle
+                        $newBottomImagesAltAz[] = $request->bottom_images_alt_az[count($existingImages) + $key] ?? '';
+                        $newBottomImagesAltEn[] = $request->bottom_images_alt_en[count($existingImages) + $key] ?? '';
+                        $newBottomImagesAltRu[] = $request->bottom_images_alt_ru[count($existingImages) + $key] ?? '';
+                    }
+                }
+            }
+        }
+
+        // Silinen resimleri kaldır
+        if ($portfolio->bottom_images) {
+            $oldImages = json_decode($portfolio->bottom_images);
+            foreach ($oldImages as $oldImage) {
+                if(!in_array($oldImage, $newBottomImages)) {
                     $oldImagePath = public_path($oldImage);
                     if (file_exists($oldImagePath)) {
                         unlink($oldImagePath);
                     }
                 }
             }
-
-            $bottomImages = [];
-            $bottomImagesAltAz = [];
-            $bottomImagesAltEn = [];
-            $bottomImagesAltRu = [];
-
-            foreach ($request->file('bottom_images') as $key => $file) {
-                $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-                $webpFileName = time() . '_' . $originalFileName . '.webp';
-
-                $imageResource = imagecreatefromstring(file_get_contents($file));
-                $webpPath = $this->destinationPath . '/' . $webpFileName;
-
-                if ($imageResource) {
-                    imagewebp($imageResource, $webpPath, 80);
-                    imagedestroy($imageResource);
-
-                    $bottomImages[] = 'uploads/' . $webpFileName;
-                    
-                    // Store corresponding ALT texts
-                    $bottomImagesAltAz[] = $request->bottom_images_alt_az[$key] ?? '';
-                    $bottomImagesAltEn[] = $request->bottom_images_alt_en[$key] ?? '';
-                    $bottomImagesAltRu[] = $request->bottom_images_alt_ru[$key] ?? '';
-                }
-            }
-            
-            $data['bottom_images'] = json_encode($bottomImages);
-            $data['bottom_images_alt_az'] = json_encode($bottomImagesAltAz);
-            $data['bottom_images_alt_en'] = json_encode($bottomImagesAltEn);
-            $data['bottom_images_alt_ru'] = json_encode($bottomImagesAltRu);
         }
+
+        // Verileri güncelle
+        $data['bottom_images'] = json_encode($newBottomImages);
+        $data['bottom_images_alt_az'] = json_encode($newBottomImagesAltAz);
+        $data['bottom_images_alt_en'] = json_encode($newBottomImagesAltEn);
+        $data['bottom_images_alt_ru'] = json_encode($newBottomImagesAltRu);
 
         // Portfolio güncelle
         $portfolio->update($data);

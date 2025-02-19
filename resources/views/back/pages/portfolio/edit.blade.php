@@ -48,6 +48,15 @@
                                         <div class="mb-3">
                                             <label class="form-label">Alt Şəkillər</label>
                                             <div id="bottom-images-container">
+                                                @if($portfolio->bottom_images)
+                                                    @foreach(json_decode($portfolio->bottom_images) as $index => $image)
+                                                        <div class="input-group mb-2">
+                                                            <input type="file" name="bottom_images[]" class="form-control">
+                                                            <input type="hidden" name="existing_bottom_images[]" value="{{ $image }}">
+                                                            <button type="button" class="btn btn-danger" onclick="removeBottomImage(this)">Sil</button>
+                                                        </div>
+                                                    @endforeach
+                                                @endif
                                                 <div class="input-group mb-2">
                                                     <input type="file" name="bottom_images[]" class="form-control">
                                                     <button type="button" class="btn btn-danger" onclick="removeBottomImage(this)">Sil</button>
@@ -259,29 +268,38 @@
     <script>
         function addBottomImage() {
             const container = document.getElementById('bottom-images-container');
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.name = 'bottom_images[]';
-            input.className = 'form-control mb-2';
-            container.appendChild(input);
+            const div = document.createElement('div');
+            div.className = 'input-group mb-2';
+            div.innerHTML = `
+                <input type="file" name="bottom_images[]" class="form-control">
+                <button type="button" class="btn btn-danger" onclick="removeBottomImage(this)">Sil</button>
+            `;
+            container.appendChild(div);
         }
 
-        function removeLastBottomImage() {
-            const container = document.getElementById('bottom-images-container');
-            const inputs = container.getElementsByTagName('input');
-            if (inputs.length > 0) {
-                container.removeChild(inputs[inputs.length - 1]);
+        function removeBottomImage(button) {
+            const div = button.closest('.input-group');
+            if(div) {
+                div.remove();
             }
         }
 
         function addBottomImageAlt(lang) {
             const container = document.getElementById(`bottom-images-alt-container-${lang}`);
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.name = `bottom_images_alt_${lang}[]`;
-            input.className = 'form-control mb-2';
-            input.placeholder = lang === 'ru' ? 'ALT текст' : (lang === 'en' ? 'ALT text' : 'ALT metni');
-            container.appendChild(input);
+            const div = document.createElement('div');
+            div.className = 'input-group mb-2';
+            div.innerHTML = `
+                <input type="text" name="bottom_images_alt_${lang}[]" class="form-control" placeholder="${lang === 'ru' ? 'ALT текст' : (lang === 'en' ? 'ALT text' : 'ALT metni')}">
+                <button type="button" class="btn btn-danger" onclick="removeAltInput(this)">X</button>
+            `;
+            container.appendChild(div);
+        }
+
+        function removeAltInput(button) {
+            const div = button.closest('.input-group');
+            if(div) {
+                div.remove();
+            }
         }
     </script>
 @endsection 
