@@ -77,6 +77,12 @@
                                                         <img src="{{ asset($image) }}" alt="" class="img-fluid me-2" style="max-height: 100px">
                                                     @endforeach
                                                 </div>
+                                                <div class="form-check mt-2">
+                                                    <input class="form-check-input" type="checkbox" name="delete_bottom_images" id="delete_bottom_images" value="1">
+                                                    <label class="form-check-label" for="delete_bottom_images">
+                                                        Bütün alt şəkilləri sil
+                                                    </label>
+                                                </div>
                                             @endif
                                         </div>
                                     </div>

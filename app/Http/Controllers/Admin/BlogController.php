@@ -213,6 +213,21 @@ class BlogController extends Controller
             $data['bottom_images_alt_az'] = json_encode($bottomImagesAltAz);
             $data['bottom_images_alt_en'] = json_encode($bottomImagesAltEn);
             $data['bottom_images_alt_ru'] = json_encode($bottomImagesAltRu);
+        } elseif (isset($request->delete_bottom_images) && $request->delete_bottom_images == 1) {
+            if ($blog->bottom_images) {
+                $oldImages = json_decode($blog->bottom_images);
+                foreach ($oldImages as $oldImage) {
+                    $oldImagePath = public_path($oldImage);
+                    if (file_exists($oldImagePath)) {
+                        unlink($oldImagePath);
+                    }
+                }
+            }
+            
+            $data['bottom_images'] = null;
+            $data['bottom_images_alt_az'] = null;
+            $data['bottom_images_alt_en'] = null;
+            $data['bottom_images_alt_ru'] = null;
         }
 
         $blog->update($data);

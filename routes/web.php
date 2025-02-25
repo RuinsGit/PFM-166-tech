@@ -107,7 +107,7 @@ Route::prefix('admin')->group(function () {
             Route::post('leaders', [LeaderController::class, 'store'])->name('leaders.store');
             Route::get('leaders/{id}/edit', [LeaderController::class, 'edit'])->name('leaders.edit');
             Route::put('leaders/{id}', [LeaderController::class, 'update'])->name('leaders.update');
-            Route::delete('leaders/{id}', [LeaderController::class, 'destroy'])->name('leaders.destroy');
+            Route::get('leaders/{id}', [LeaderController::class, 'destroy'])->name('leaders.destroy');
             Route::post('leaders/status/{id}', [LeaderController::class, 'status'])->name('leaders.status');
 
             // About Hero Routes
