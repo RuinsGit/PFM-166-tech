@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\BlogTypeController;
 use App\Http\Controllers\Admin\SeoController;
 use App\Http\Controllers\Admin\SocialfooterController;
 use App\Http\Controllers\Admin\ContactfooterController;
+use App\Http\Controllers\Admin\CertificateController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -136,6 +137,7 @@ Route::prefix('admin')->group(function () {
             Route::get('service/{id}/edit', [ServiceController::class, 'edit'])->name('service.edit');
             Route::put('service/{id}', [ServiceController::class, 'update'])->name('service.update');
             Route::delete('service/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
+            Route::post('service/update-image-order', [ServiceController::class, 'updateImageOrder'])->name('service.update-image-order');
 
             // Keyfiyet Routes
             Route::get('keyfiyet', [KeyfiyetController::class, 'index'])->name('keyfiyet.index');
@@ -282,6 +284,14 @@ Route::prefix('admin')->group(function () {
             Route::get('contactfooter/{id}/edit', [ContactfooterController::class, 'edit'])->name('contactfooter.edit');
             Route::put('contactfooter/{id}', [ContactfooterController::class, 'update'])->name('contactfooter.update');
             Route::delete('contactfooter/{id}', [ContactfooterController::class, 'destroy'])->name('contactfooter.destroy');
+
+            // Certificate routes
+            Route::get('certificate', [CertificateController::class, 'index'])->name('certificate.index');
+            Route::get('certificate/create', [CertificateController::class, 'create'])->name('certificate.create');
+            Route::post('certificate', [CertificateController::class, 'store'])->name('certificate.store');
+            Route::get('certificate/{id}/edit', [CertificateController::class, 'edit'])->name('certificate.edit');
+            Route::put('certificate/{id}', [CertificateController::class, 'update'])->name('certificate.update');
+            Route::delete('certificate/{id}', [CertificateController::class, 'destroy'])->name('certificate.destroy');
 
         });     
     });

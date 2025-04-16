@@ -34,4 +34,9 @@ class Service extends Model
         'text2_en',
         'text2_ru'
     ];
+    
+    public function images()
+    {
+        return $this->hasMany(ServiceImage::class)->orderBy('order');
+    }
 } 

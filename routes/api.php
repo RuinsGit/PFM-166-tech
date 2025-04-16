@@ -30,6 +30,7 @@ use App\Http\Controllers\Api\SocialfooterApiController;
 use App\Http\Controllers\Api\ContactfooterApiController;
 use App\Http\Controllers\Api\PortfolioTypeApiController;
 use App\Http\Controllers\Api\GalleryTypeApiController;
+use App\Http\Controllers\Api\CertificateController;
 
 // About Routes
 Route::get('/about', [AboutController::class, 'index']);
@@ -210,6 +211,10 @@ Route::get('/portfolio-types/{id}', [PortfolioTypeApiController::class, 'show'])
 // Gallery Type Routes
 Route::get('/gallery-types', [GalleryTypeApiController::class, 'index']);
 Route::get('/gallery-types/{id}', [GalleryTypeApiController::class, 'show']);
+
+// Certificate Routes
+Route::get('/certificates', [CertificateController::class, 'index']);
+Route::get('/certificates/{id}', [CertificateController::class, 'show']);
 
 
 

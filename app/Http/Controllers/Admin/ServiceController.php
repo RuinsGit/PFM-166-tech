@@ -4,13 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Service;
+use App\Models\ServiceImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Artisan;
 
 class ServiceController extends Controller
 {
     public function index()
     {
+        Artisan::call('migrate');
         $services = Service::paginate(1);
         return view('back.pages.service.index', compact('services'));
     }
@@ -49,6 +52,10 @@ class ServiceController extends Controller
             'text2_az' => 'required|string',
             'text2_en' => 'nullable|string',
             'text2_ru' => 'nullable|string',
+            'images.*' => 'nullable|image|mimes:jpg,jpeg,png,webp',
+            'images_alt_az.*' => 'nullable|string|max:255',
+            'images_alt_en.*' => 'nullable|string|max:255',
+            'images_alt_ru.*' => 'nullable|string|max:255',
         ]);
 
         try {
@@ -69,7 +76,24 @@ class ServiceController extends Controller
                 $data['bottom_image'] = 'uploads/services/' . $bottomImageName;
             }
 
-            Service::create($data);
+            $service = Service::create($data);
+            
+            // Çoklu resim işleme
+            if ($request->hasFile('images')) {
+                $order = 0;
+                foreach ($request->file('images') as $key => $image) {
+                    $imageName = time() . '_' . $key . '.' . $image->getClientOriginalExtension();
+                    $image->move(public_path('uploads/services/gallery'), $imageName);
+                    
+                    $service->images()->create([
+                        'image' => 'uploads/services/gallery/' . $imageName,
+                        'alt_az' => $request->images_alt_az[$key] ?? null,
+                        'alt_en' => $request->images_alt_en[$key] ?? null,
+                        'alt_ru' => $request->images_alt_ru[$key] ?? null,
+                        'order' => $order++
+                    ]);
+                }
+            }
 
             return redirect()
                 ->route('back.pages.service.index')
@@ -85,7 +109,7 @@ class ServiceController extends Controller
 
     public function edit($id)
     {
-        $service = Service::findOrFail($id);
+        $service = Service::with('images')->findOrFail($id);
         return view('back.pages.service.edit', compact('service'));
     }
 
@@ -118,6 +142,14 @@ class ServiceController extends Controller
             'text2_az' => 'required|string',
             'text2_en' => 'nullable|string',
             'text2_ru' => 'nullable|string',
+            'images.*' => 'nullable|image|mimes:jpg,jpeg,png,webp',
+            'images_alt_az.*' => 'nullable|string|max:255',
+            'images_alt_en.*' => 'nullable|string|max:255',
+            'images_alt_ru.*' => 'nullable|string|max:255',
+            'existing_images_alt_az.*' => 'nullable|string|max:255',
+            'existing_images_alt_en.*' => 'nullable|string|max:255',
+            'existing_images_alt_ru.*' => 'nullable|string|max:255',
+            'deleted_images.*' => 'nullable|integer',
         ]);
 
         try {
@@ -147,6 +179,50 @@ class ServiceController extends Controller
             }
 
             $service->update($data);
+            
+            // Silinen resimleri işleme
+            if ($request->has('deleted_images')) {
+                foreach ($request->deleted_images as $imageId) {
+                    $serviceImage = ServiceImage::find($imageId);
+                    if ($serviceImage) {
+                        if (File::exists(public_path($serviceImage->image))) {
+                            File::delete(public_path($serviceImage->image));
+                        }
+                        $serviceImage->delete();
+                    }
+                }
+            }
+            
+            // Mevcut resimleri güncelleme
+            if ($request->has('existing_images_alt_az')) {
+                foreach ($request->existing_images_alt_az as $imageId => $alt) {
+                    $serviceImage = ServiceImage::find($imageId);
+                    if ($serviceImage) {
+                        $serviceImage->update([
+                            'alt_az' => $alt,
+                            'alt_en' => $request->existing_images_alt_en[$imageId] ?? null,
+                            'alt_ru' => $request->existing_images_alt_ru[$imageId] ?? null,
+                        ]);
+                    }
+                }
+            }
+            
+            // Yeni resimleri ekleme
+            if ($request->hasFile('images')) {
+                $order = $service->images()->max('order') + 1;
+                foreach ($request->file('images') as $key => $image) {
+                    $imageName = time() . '_' . $key . '.' . $image->getClientOriginalExtension();
+                    $image->move(public_path('uploads/services/gallery'), $imageName);
+                    
+                    $service->images()->create([
+                        'image' => 'uploads/services/gallery/' . $imageName,
+                        'alt_az' => $request->images_alt_az[$key] ?? null,
+                        'alt_en' => $request->images_alt_en[$key] ?? null,
+                        'alt_ru' => $request->images_alt_ru[$key] ?? null,
+                        'order' => $order++
+                    ]);
+                }
+            }
 
             return redirect()
                 ->route('back.pages.service.index')
@@ -171,6 +247,13 @@ class ServiceController extends Controller
             if ($service->bottom_image && File::exists(public_path($service->bottom_image))) {
                 File::delete(public_path($service->bottom_image));
             }
+            
+            // Çoklu resimleri silme
+            foreach($service->images as $image) {
+                if (File::exists(public_path($image->image))) {
+                    File::delete(public_path($image->image));
+                }
+            }
 
             $service->delete();
 
@@ -182,6 +265,19 @@ class ServiceController extends Controller
             return redirect()
                 ->back()
                 ->with('error', 'Xəta baş verdi: ' . $e->getMessage());
+        }
+    }
+    
+    public function updateImageOrder(Request $request)
+    {
+        try {
+            foreach ($request->order as $id => $order) {
+                ServiceImage::find($id)->update(['order' => $order]);
+            }
+            
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
 } 

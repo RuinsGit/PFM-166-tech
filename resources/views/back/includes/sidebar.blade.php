@@ -127,6 +127,13 @@
                        
                     </ul>
 
+                    <li>
+                            <a href="{{ route('back.pages.certificate.index') }}">
+                                <i class="ri-award-line"></i>
+                                <span>Sertifikatlar</span>
+                            </a>
+                        </li>
+
 
                     <li>
                             <a href="{{ route('back.pages.service.index') }}">
@@ -153,7 +160,7 @@
                             </a>
                         </li>
 
-                        <li>
+                        <!-- <li>
                             <a href="{{ route('back.pages.gallery_type.index') }}">
                                 <i class="ri-brackets-line"></i>
                                 <span>Galeriya Tipi</span>
@@ -164,7 +171,7 @@
                                 <i class="ri-image-line"></i>
                                 <span>Galeriya</span>
                             </a>
-                        </li>
+                        </li> -->
                      
                         <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">

@@ -56,6 +56,85 @@
                                         @endif
                                     </div>
                                 </div>
+                                
+                                <!-- Çoklu Resim Yükleme Alanı -->
+                                <div class="card mb-3">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Galeri Şəkillər</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Mevcut Resimler -->
+                                        @if($service->images->count() > 0)
+                                            <h6 class="mb-3">Mövcud Şəkillər</h6>
+                                            <div class="existing-images mb-4">
+                                                <div class="row" id="sortable-images">
+                                                    @foreach($service->images as $image)
+                                                        <div class="col-md-3 mb-3" data-id="{{ $image->id }}">
+                                                            <div class="card">
+                                                                <img src="{{ asset($image->image) }}" class="card-img-top" alt="">
+                                                                <div class="card-body">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label">ALT (AZ)</label>
+                                                                        <input type="text" name="existing_images_alt_az[{{ $image->id }}]" 
+                                                                               class="form-control" value="{{ $image->alt_az }}">
+                                                                    </div>
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label">ALT (EN)</label>
+                                                                        <input type="text" name="existing_images_alt_en[{{ $image->id }}]" 
+                                                                               class="form-control" value="{{ $image->alt_en }}">
+                                                                    </div>
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label">ALT (RU)</label>
+                                                                        <input type="text" name="existing_images_alt_ru[{{ $image->id }}]" 
+                                                                               class="form-control" value="{{ $image->alt_ru }}">
+                                                                    </div>
+                                                                    <div class="text-center mt-3">
+                                                                        <button type="button" class="btn btn-danger btn-sm delete-image" 
+                                                                                data-id="{{ $image->id }}">
+                                                                            <i class="fas fa-trash"></i> Sil
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        @endif
+                                        
+                                        <h6 class="mb-3">Yeni Şəkillər</h6>
+                                        <div class="images-container">
+                                            <div class="row mb-3 image-item">
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Şəkil</label>
+                                                    <input type="file" name="images[]" class="form-control">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <label class="form-label">ALT (AZ)</label>
+                                                            <input type="text" name="images_alt_az[]" class="form-control">
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label class="form-label">ALT (EN)</label>
+                                                            <input type="text" name="images_alt_en[]" class="form-control">
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label class="form-label">ALT (RU)</label>
+                                                            <input type="text" name="images_alt_ru[]" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-success add-image-btn">+ Şəkil əlavə et</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Silinen resimleri takip etmek için gizli alan -->
+                                <div id="deleted-images-container"></div>
 
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs nav-justified" role="tablist">
@@ -253,10 +332,17 @@
 @push('css')
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+<style>
+    #sortable-images .card {
+        cursor: move;
+    }
+</style>
 @endpush
 
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
     $(document).ready(function() {
         $('.summernote').summernote({
@@ -270,6 +356,52 @@
                 ['insert', ['link', 'picture', 'video']],
                 ['view', ['fullscreen', 'codeview', 'help']]
             ]
+        });
+        
+        // Yeni resim alanı eklemek için
+        $('.add-image-btn').click(function() {
+            var imageItem = $('.image-item:first').clone();
+            imageItem.find('input').val('');
+            $('.images-container').append(imageItem);
+        });
+        
+        // Resim silme işlemi
+        $('.delete-image').click(function() {
+            var imageId = $(this).data('id');
+            var input = $('<input>').attr({
+                type: 'hidden',
+                name: 'deleted_images[]',
+                value: imageId
+            });
+            $('#deleted-images-container').append(input);
+            $(this).closest('.col-md-3').fadeOut();
+        });
+        
+        // Sıralama için
+        $("#sortable-images").sortable({
+            update: function(event, ui) {
+                var order = {};
+                $("#sortable-images > div").each(function(index) {
+                    order[$(this).data('id')] = index;
+                });
+                
+                $.ajax({
+                    url: "{{ route('back.pages.service.update-image-order') }}",
+                    method: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        order: order
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            console.log("Sıralama güncellendi");
+                        }
+                    },
+                    error: function(xhr) {
+                        console.error("Hata oluştu", xhr);
+                    }
+                });
+            }
         });
     });
 </script>
